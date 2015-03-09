@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{{page_title}} - {{site.sitename()}}</title>
+
+		<meta name="description" content="@site_description">
+
+		<link rel="stylesheet" href="{{url_for('static', filename='theme/default/css/reset.css')}}">
+		<link rel="stylesheet" href="{{url_for('static', filename='theme/default/css/style.css')}}">
+		<link rel="stylesheet" href="{{url_for('static', filename='theme/default/css/small.css')}}" media="(max-width: 400px)">
+
+		<link rel="alternate" type="application/rss+xml" title="RSS" href="@rss_url">
+		<link rel="shortcut icon" href="{{url_for('static', filename='theme/default//img/favicon.png')}}">
+
+		<!--[if lt IE 9]>
+			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<script src="{{url_for('static', filename='js/zepto.js')}}"></script>
+		<script src="{{url_for('static', filename='theme/default/js/main.js')}}"></script>
+
+	    <meta name="viewport" content="width=device-width">
+	    <meta name="generator" content="White">
+
+	    <meta property="og:title" content="{{site.sitename()}}">
+	    <meta property="og:type" content="website">
+	    <meta property="og:url" content="${current_url()}">
+	    <meta property="og:image" content="{{url_for('static', filename='theme/default//img/og_image.gif')}}">
+	    <meta property="og:site_name" content="{{site.sitename()}}">
+	    <meta property="og:description" content="{{site.description()}}">

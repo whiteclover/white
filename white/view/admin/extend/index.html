@@ -1,0 +1,28 @@
+{% include "admin/layout/header.html" %}
+<hgroup class="wrap">
+	<h1>{{__('extend.variables')}}</h1>
+</hgroup>
+
+<section class="wrap">
+	<ul class="list">
+		<li>
+			<a href="/admin/extend/field">
+				<strong>{{__('extend.fields')}}</strong>
+				<span>{{__('extend.fields_desc')}}</span>
+			</a>
+		</li>
+		<li>
+			<a href="/admin/extend/metadata">
+				<strong>{{__('metadata.metadata')}}</strong>
+				<span>{{__('metadata.metadata_desc')}}</span>
+			</a>
+		</li>
+		<li>
+			<a href="/admin/extend/plugin">
+				<strong>Plugins</strong>
+				<span>Coming soon, yo!</span>
+			</a>
+		</li>
+	</ul>
+</section>
+{% include "admin/layout/footer.html" %}

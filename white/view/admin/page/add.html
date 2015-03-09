@@ -1,0 +1,90 @@
+{% include "admin/layout/header.html" %}
+
+<form method="post" action="/admin/page/add" enctype="multipart/form-data" novalidate>
+
+    {{ flash }}
+    <fieldset class="header">
+        <div class="wrap">
+
+            <input name='title' type='text' value='{{request.form.get('title', '')}}' placeholder='{{__('page.title')}}' autocomplete='off' autofocus='true'>
+
+            <aside class="buttons">
+                <button class='btn' type='submit'>{{__('global.save')}}</button>
+                <button class='btn secondary'>{{__('page.redirect')}}</button>
+            </aside>
+        </div>
+    </fieldset>
+
+    <fieldset class="redirect">
+        <div class="wrap">
+            <input name='redirect' {{request.form.get('redirect', '')}} placeholder='{{__('page.redirect_url')}}' />
+        </div>
+    </fieldset>
+
+    <fieldset class="main">
+        <div class="wrap">
+            <textarea name='content' placeholder='{{__('post.content_explain')}}' rows=10 cols=50 id='content'>{{request.form.get('content', '')}}</textarea>
+            {% include "admin/layout/edit.html" %}
+        </div>
+    </fieldset>
+
+    <fieldset class="meta split">
+        <div class="wrap">
+            <p>
+                <label>{{__('page.show_in_menu')}}:</label>
+                <input type='checkbox' name='show_in_menu'  value="1" checked='checked' />
+                <em>{{__('page.show_in_menu_explain')}}</em>
+            </p>
+            <p>
+                <label>{{__('page.name')}}:</label>
+                <input type='text' name='name' value='{{request.form.get('name', '')}}' />
+                <em>{{__('page.name_explain')}}</em>
+            </p>
+            <p>
+                <label>{{__('page.slug')}}:</label>
+                <input type='text' name='slug' value='{{request.form.get('slug', '')}}' />
+                <em>{{__('page.slug_explain')}}</em>
+            </p>
+            <p>
+                <label>{{__('page.status')}}:</label>
+                <select name='status' id='status'>
+                {% for name, value in statuses.items() %}
+                    <option value="{{name}}">{{value}}</option>
+                {% endfor %}
+                </select>
+                <em>{{__('page.status_explain')}}</em>
+            </p>
+            <p>
+                <label>{{__('page.parent')}}:</label>
+                <select name='parent'>
+                {% for name, value in pages %}
+                    <option value="{{name}}">{{value}}</option>
+                {% endfor %}
+                </select>
+                <em>{{__('page.parent_explain')}}</em>
+            </p>
+            {% for field in fields %}
+            <p>
+                <label for="extend_{{field.key}}">{{field.label}}:</label>
+                {{field}}
+            </p>
+            {% endfor %}
+
+
+        </div>
+    </fieldset>
+</form>
+
+<script src="{{ url_for('static', filename="js/slug.js") }}"></script>
+<script src="{{ url_for('static', filename="js/page-name.js") }}"></script>
+<script src="{{ url_for('static', filename="js/redirect.js") }}"></script>
+<script src="{{ url_for('static', filename="js/dragdrop.js") }}"></script>
+<script src="{{ url_for('static', filename="js/upload-fields.js") }}"></script>
+<script src="{{ url_for('static', filename="js/text-resize.js") }}"></script>
+<script src="{{ url_for('static', filename="js/editor.js") }}"></script>
+
+<script>
+    $('textarea[name=content]').editor();
+</script>
+
+{% include "admin/layout/footer.html" %}

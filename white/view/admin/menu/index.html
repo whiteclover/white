@@ -1,0 +1,42 @@
+{% include "admin/layout/header.html" %}
+<hgroup class="wrap">
+    <h1>{{__('menu.menu', 'Menu')}}</h1>
+</hgroup>
+
+<section class="wrap">
+    {% if pages %}
+    <ul class="sortable">
+        {% for page in pages %}
+        <li class="item" draggable="true">
+            <span data-id="{{page.pid}}">{{page.name}}</span>
+        </li>
+       {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">
+        <span class="icon"></span>
+        No menu items yet.
+    </p>
+    {% endif %}
+</section>
+
+<script src="{{ url_for('static', filename='js/sortable.js') }}"></script>
+<script>
+    $('.sortable').sortable({
+        element: 'li',
+        dropped: function() {
+            var data = [];
+            $('.sortable span').each(function(index, item) {
+                data.push('sort=' + $(item).data('id'));
+            });
+            $.ajax({
+                'type': 'POST',
+                'url': '{{ url_for('admin.menu_update') }}',
+                'data': data.join('&')
+            });
+        }
+    });
+</script>
+
+
+{% include "admin/layout/footer.html" %}

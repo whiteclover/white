@@ -1,0 +1,41 @@
+{% extends "theme/default/layout.html" %}
+{% block body %}
+{% if posts %}
+<section class="content">
+		<ul class="items">
+			{% set i = 1 %}
+			{% for post in posts %}
+			{% set bg = 'background: hsl(215, 28%%, %d%%)' %( (i /10 * 20) + 20) %}
+			{% set i = i + 1 %}
+			<li style="{{ bg }}">
+				<article class="wrap">
+					<h2>
+						<a href="/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
+					</h2>
+
+					<footer>
+						Posted <time datetime="{{ post.created }}">{{ post.created  }}</time> by author {{ post.user.username }}.
+					</footer>
+				</article>
+			</li>
+			{% endfor %}
+		</ul>
+
+		{% if post_total > site.posts_per_page() %}
+		<nav class="pagination">
+			<div class="wrap">
+				{{posts.pre_link()}}
+				{{posts.next_link()}}
+			</div>
+		</nav>
+
+		{% endif %}
+</section>
+{% else %}
+
+<section class="content wrap">
+		<h1>Nothing</h1>
+		<p>Looks like you have some writing to do!</p>
+</section>
+{% endif %}
+{% endblock %}

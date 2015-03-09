@@ -1,0 +1,37 @@
+
+{% extends "theme/default/layout.html" %}
+{% block body %}
+<h1 class="wrap">You searched for &ldquo;{{search_term}}&rdquo;.</h1>
+
+	{% if articles %}
+	<ul class="items">
+	{% for article in articles %}
+		<li style="background: hsl(215,28%, 12%);">
+			<article class="wrap">
+				<h2>
+					<a href="/post/{{article.slug}}" title="{{ article.title }}"> {{article.title}}</a>
+				</h2>
+			</article>
+		</li>
+	{% endfor %}
+
+	</ul>
+	{% else %}
+		<p class="wrap">Unfortunately, there's no results for &ldquo;{{key}}&rdquo;. Did you spell everything correctly?</p>
+	{% endif %}
+
+
+
+	{% if articles.total > site.posts_per_page() %}
+	<nav class="pagination">
+		<div class="wrap">
+			{{articles.pre_link()}}
+			{{articles.next_link()}}
+		</div>
+	</nav>
+
+		{% endif %}
+
+{% endblock %}
+
+

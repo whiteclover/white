@@ -1,0 +1,50 @@
+	</head>
+	<body >
+		<div class="main-wrap">
+			<div class="slidey" id="tray">
+				<div class="wrap">
+					<form id="search" action="/search" method="get">
+						<label for="q">Search my blog:</label>
+						{% set search_term = search_term if search_term is defined else '' %}
+						<input type="search" id="q" name="q" placeholder="To search, type and hit enter&hellip;" value="{{ search_term }}">
+					</form>
+
+					<aside>
+						<b>Categories</b>
+						<ul>
+							{% for c in site_categories() %}
+							<li>
+								<a href="{{c.category_url()}}" title="{{c.description}}">
+									{{c.title}} <span> {{c.category_count()}}</span>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</aside>
+				</div>
+			</div>
+
+			<header id="top">
+				<a id="logo" href="{{url_for('site.page')}}">{{site.sitename()}}</a>
+				{% set menus = menus() %}
+				{% if menus %}
+				{% macro menu_active(menu) %}
+						{% if page is defined  and page.slug == menu.slug and page.pid == menu.pid %}
+							class="active"
+						{% endif %}
+				{% endmacro %}
+				<nav id="main" role="navigation">
+					<ul>	
+						{% for menu in menus %}
+						<li {{menu_active(menu)}}>
+							<a href="{{menu.url()}}" title="{{menu.title}}">{{menu.name}}</a>
+						</li>
+						{% endfor %}
+
+						<li class="tray">
+							<a href="#tray" class="linky"><img src="{{url_for('static', filename='theme/default/img/categories.png')}}" alt="Categories" title="View my posts by category"></a>
+						</li>
+					</ul>
+				</nav>
+				{% endif %}
+			</header>

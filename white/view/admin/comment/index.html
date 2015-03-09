@@ -1,0 +1,39 @@
+{% include "admin/layout/header.html" %}
+
+<hgroup class="wrap">
+    <h1>{{__('comment.comment')}}</h1>
+</hgroup>
+
+<section class="wrap">
+    {{flash}}
+
+    <nav class="sidebar statuses">
+        {% for data in statuses %}
+        <a href='/admin/comment/{{data['url']}}' class= '{{'active' if data['class'] == status else ''}}'><span class="icon"></span>  {{data['lang']}}</a>
+        {% endfor %}
+    </nav>
+
+    {% if comments %}
+        <ul class="main list">
+        {% for comment in comments %}
+        <li>
+            <a href="/admin/comment/{{comment.cid}}/edit">
+                <strong>{{comment.content}}</strong>
+                <span><time>{{comment.created}}</time></span>
+                <span class="highlight">{{comment.status}}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <aside class="paging">{{comments}}</aside>
+
+    {% else %}
+    <p class="empty comments">
+        <span class="icon"></span>
+        {{__('comment.nocomments_desc')}}
+    </p>
+    {% endif %}
+</section>
+
+{% include "admin/layout/footer.html" %}
