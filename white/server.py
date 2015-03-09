@@ -38,7 +38,7 @@ class WhiteServer(object):
 	    parser = ArgumentParser(usage="whited [options]")
 	    _ = parser.add_argument
 	    _('-host', '--host', help='the host for run server', default='localhost')
-	    _('-p', '--port', help='the port for run server', default=5000)
+	    _('-p', '--port', help='the port for run server', type=int, default=5000)
 	    _("-d", "--debug", action='store_true', default=False, help="open debug mode (default %(default)r)")
 	    _("-c", "--config", default='/etc/white/config',
 	          help="config path (default %(default)r)", metavar="FILE")
@@ -137,4 +137,4 @@ class WhiteServer(object):
 			http_server = WSGIServer((host, port), self.app, log=debug)
 			http_server.serve_forever()
 		else:
-			self.app.run()
+			self.app.run(host, port)
