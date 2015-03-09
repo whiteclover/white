@@ -12,6 +12,10 @@ The White project keeps the most of achor-cms features, but pythonic and some ne
 #. database connection pool
 #. take advantage of Flask and Jinjia2
 
+
+.. image:: https://github.com/thomashuang/white/blob/master/snap/home.png
+
+
 Install
 ==============
 
