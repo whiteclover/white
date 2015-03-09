@@ -18,11 +18,11 @@ from white.orm import Backend
 from white.model import Page
 from white.lib.paginator import Paginator
 
+
 class PageService(object):
 
     def __init__(self):
         self.page_repo = Backend('page')
-
 
     get = lambda self, pid: self.page_repo.find(pid)
 
@@ -32,7 +32,6 @@ class PageService(object):
     def get_by_slug(self, slug):
         return self.page_repo.find_by_slug(slug)
 
-
     def dropdown(self, show_in_menu=True):
         return self.page_repo.dropdown(show_in_menu)
 
@@ -40,7 +39,7 @@ class PageService(object):
         total = self.page_repo.count(status)
         pages = self.page_repo.paginate(page, perpage, status)
         if status:
-            url = '/admin/page/status/' + status 
+            url = '/admin/page/status/' + status
         else:
             url = '/admin/page'
         pagination = Paginator(pages, total, page, perpage, url)
@@ -54,8 +53,8 @@ class PageService(object):
 
     def add_page(self, parent, name, title, slug, content, status, redirect, show_in_menu):
         redirect = redirect.strip()
-        show_in_menu =  1 if show_in_menu  else 0
-        page  = Page(parent, name, title, slug, content, status, redirect, show_in_menu)
+        show_in_menu = 1 if show_in_menu else 0
+        page = Page(parent, name, title, slug, content, status, redirect, show_in_menu)
         pid = self.page_repo.create(page)
         page.pid = pid
         return page
@@ -64,8 +63,8 @@ class PageService(object):
         return self.page_repo.count_slug(slug) == 1
 
     def update_page(self, parent, name, title, slug, content, status, redirect, show_in_menu, pid):
-        show_in_menu =  1 if show_in_menu  else 0
+        show_in_menu = 1 if show_in_menu else 0
         redirect = redirect.strip()
-        page  = Page(parent, name, title, slug, content, status, redirect, show_in_menu, pid)
+        page = Page(parent, name, title, slug, content, status, redirect, show_in_menu, pid)
         self.page_repo.save(page)
         return page

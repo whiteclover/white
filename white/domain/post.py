@@ -20,6 +20,7 @@ from white.lib.paginator import Paginator
 from white.lang import text
 from datetime import datetime
 
+
 class PostService(object):
 
     def __init__(self, post_repo=None, category_repo=None):
@@ -28,7 +29,6 @@ class PostService(object):
 
     def get_by_pid(self, post_id):
         return self.post_repo.find(post_id)
-
 
     def get_published_posts(self, page=1, perpage=10, category=None):
         return self.post_repo.get_published_posts(page, perpage, category)
@@ -40,7 +40,7 @@ class PostService(object):
             if not real_category:
                 return Paginator([], 0, page, perpage, '/category/' + category)
             cid = real_category.cid
-        
+
         total = self.post_repo.category_count(cid)
         pages = self.post_repo.get_published_posts(page, perpage, cid)
         url = 'category/' + category if category else '/posts'
@@ -60,7 +60,7 @@ class PostService(object):
         total = self.post_repo.count()
         pages = self.post_repo.paginate(page, perpage)
         pagination = Paginator(pages, total, page, perpage, '/posts')
-        
+
         return total, pagination
 
     def page(self, page=1, perpage=10, category=None):
@@ -97,7 +97,7 @@ class PostService(object):
         post.description = description
         post.html = html
         post.css = css
-        post.js = js 
+        post.js = js
 
         post.updated = datetime.now()
 

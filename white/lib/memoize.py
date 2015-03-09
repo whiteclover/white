@@ -22,7 +22,9 @@ from functools import wraps
 from threading import RLock, Thread
 
 
-class UnknowCacheType(Exception): pass
+class UnknowCacheType(Exception):
+    pass
+
 
 def memoize(type='memoize', *a, **kw):
     def _memoize(f):
@@ -32,10 +34,10 @@ def memoize(type='memoize', *a, **kw):
         elif type == 'memoize':
             lifetime = kw.get('lifetime', 300)
             cache = MemoizeCache(f, lifetime)
-        elif type== 'lru':
+        elif type == 'lru':
             cache = LRUCache(f, *a, **kw)
         else:
-            raise UnKnowCacheType('Unknow cache type %s' %(type))
+            raise UnKnowCacheType('Unknow cache type %s' % (type))
 
         _memoize_mgr.add(cache)
 
@@ -43,7 +45,7 @@ def memoize(type='memoize', *a, **kw):
         _memoized = wraps(f)(lambda *args, **kwargs: cache(*args, **kwargs))
         _memoized.cache = cache
         return _memoized
- 
+
     return _memoize
 
 
@@ -68,12 +70,12 @@ _memoize_mgr = MemozieMananger()
 
 class CacheNullValue(object):
     pass
- 
+
 _Null = CacheNullValue()
- 
+
 
 class LRACache(object):
- 
+
     def __init__(self, callback, cache_limit=1000):
         self._cache = {}
         self._queue = []
@@ -81,12 +83,12 @@ class LRACache(object):
         self.cache_limit = cache_limit
         self._lock = RLock()
         self.__name__ = self.callback.__name__
- 
+
     def __getitem__(self, name):
         with self._lock:
             return self._cache.get(name, _Null)
     get = __getitem__
- 
+
     def __setitem__(self, name, value):
         with self._lock:
             if len(self._queue) >= self.cache_limit:
@@ -111,7 +113,7 @@ class LRACache(object):
 
 class MemoizeCache(object):
 
-    def __init__(self, callback, lifetime=5*60):
+    def __init__(self, callback, lifetime=5 * 60):
         self.callback = callback
         self.__name__ = self.callback.__name__
         self.memo = {}
@@ -159,7 +161,7 @@ class EmptyCacheWorker(Thread):
                 if (next_expire is None):
                     sleep(self.peek_duration)
                 else:
-                    sleep(next_expire+1)
+                    sleep(next_expire + 1)
 
 
 def synchronized(func):
@@ -167,6 +169,7 @@ def synchronized(func):
     If the LRUCacheDict is concurrent, then we should lock in order to avoid
     conflicts with threading, or the ThreadTrigger.
     """
+
     def decorated(self, *args, **kwargs):
         if self.concurrent:
             with self._rlock:
@@ -178,9 +181,11 @@ def synchronized(func):
 
 
 class LRUCacheDict(object):
+
     """ A dictionary-like object, supporting LRU caching semantics.
     """
-    def __init__(self, max_size=1024, lifetime=15*60, thread_clear=False, concurrent=False):
+
+    def __init__(self, max_size=1024, lifetime=15 * 60, thread_clear=False, concurrent=False):
         self.max_size = max_size
         self.lifetime = lifetime
 
@@ -207,7 +212,7 @@ class LRUCacheDict(object):
         self.__access_times.clear()
 
     @synchronized
-    def  __contains__(self, key):
+    def __contains__(self, key):
         """
         This method should almost NEVER be used. The reason is that between the time
         has_key is called, and the key is accessed, the key might vanish.
@@ -246,7 +251,7 @@ class LRUCacheDict(object):
         if self.lifetime is None:
             return None
         t = int(time())
-        #Delete expired
+        # Delete expired
         next_expire = None
         for k in self.__expire_times.iterkeys():
             if self.__expire_times[k] < t:
@@ -255,7 +260,7 @@ class LRUCacheDict(object):
                 next_expire = self.__expire_times[k]
                 break
 
-        #If we have more than self.max_size items, delete the oldest
+        # If we have more than self.max_size items, delete the oldest
         while (len(self.__values) > self.max_size):
             for k in self.__access_times.iterkeys():
                 self.__delete__(k)
@@ -265,11 +270,14 @@ class LRUCacheDict(object):
         else:
             return None
 
+
 class LRUCache(object):
+
     """
     A memoized function, backed by an LRU cache.
 
     """
+
     def __init__(self, callback, *arg, **kw):
 
         self.cache = LRUCacheDict(*args, **kw)

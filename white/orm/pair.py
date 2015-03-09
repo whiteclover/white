@@ -18,6 +18,7 @@ from .base import BaseMapper
 from white.ext import db
 from white.model import Pair
 
+
 class PairMapper(BaseMapper):
 
     model = Pair
@@ -28,7 +29,7 @@ class PairMapper(BaseMapper):
         if sorted:
             q.sort_by('key')
         if exclude:
-            db.condition('key' , exculde, '<>')
+            db.condition('key', exculde, '<>')
         res = q.execute()
         return [self.load(row, self.model) for row in res]
 

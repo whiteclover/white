@@ -18,8 +18,6 @@ import codecs
 import os
 import os.path
 
-from lilac.config import config
-
 
 def setup(language=None):
     global __lines

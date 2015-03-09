@@ -51,10 +51,10 @@ STATUSES = {
 @security(EDITOR)
 def post_page(page=1, category=None):
     pagination = post_service.page(page, site.posts_per_page(), category)
-    return render_template('admin//post/index.html', 
-            categories=category_service.dropdown(),
-            posts=pagination,
-            category=category)
+    return render_template('admin//post/index.html',
+                           categories=category_service.dropdown(),
+                           posts=pagination,
+                           category=category)
 
 
 @bp.route('/post/add', methods=['GET', 'POST'])
@@ -62,10 +62,10 @@ def post_page(page=1, category=None):
 def post_add():
     if request.method == 'GET':
         fields = extend_service.get_fields_by_type('post')
-        return render_template('admin/post/add.html', 
-            statuses=STATUSES, 
-            categories=category_service.dropdown(),
-            fields=fields)
+        return render_template('admin/post/add.html',
+                               statuses=STATUSES,
+                               categories=category_service.dropdown(),
+                               fields=fields)
 
     p = request.form.get
     title = p('title', default='')
@@ -84,13 +84,14 @@ def post_add():
     validator = Validator()
     (validator.check(title, 'min', text('post.title_missing'), 1)
         .check(slug, 'min', text('post.title_missing'), 1)
-    )
+     )
     if validator.errors:
         flash(validator.errors, 'error')
         return render_template('admin/post/add.html')
 
     author = g.user
-    post = post_service.add_post(title, slug, description, html, css, js, category, status, comments, author)
+    post = post_service.add_post(
+        title, slug, description, html, css, js, category, status, comments, author)
     extend_service.prcoess_field(post, 'post')
     return redirect(url_for('admin.post_page'))
 
@@ -100,11 +101,11 @@ def post_add():
 def post_edit(post_id):
     if request.method == 'GET':
         fields = extend_service.get_fields_by_type('post', post_id)
-        return render_template('admin/post/edit.html', 
-            statuses=STATUSES, 
-         categories=category_service.dropdown(),
-         article= post_service.get_by_pid(post_id),
-         fields=fields)
+        return render_template('admin/post/edit.html',
+                               statuses=STATUSES,
+                               categories=category_service.dropdown(),
+                               article=post_service.get_by_pid(post_id),
+                               fields=fields)
 
     p = request.form.get
     title = p('title', default='')
@@ -120,16 +121,16 @@ def post_edit(post_id):
     title = title.strip()
     slug = slug.strip() or title
 
-
     validator = Validator()
     (validator.check(title, 'min', text('post.title_missing'), 1)
         .check(slug, 'min', text('post.title_missing'), 1)
-    )
+     )
     if validator.errors:
         flash(validator.errors, 'error')
         return redirect(url_for('admin.post_edit', post_id=post_id))
 
-    post = post_service.update_post(title, slug, description, html, css, js, category, status, comments, post_id)
+    post = post_service.update_post(
+        title, slug, description, html, css, js, category, status, comments, post_id)
     extend_service.prcoess_field(post, 'post')
     flash(text('post.updated'), 'success')
     return redirect(url_for('admin.post_edit', post_id=post_id))

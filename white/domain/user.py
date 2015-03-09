@@ -20,7 +20,7 @@ from white.lib.paginator import Paginator
 from flask import session, g
 from white.lang import text
 from white.lib.validator import EmailValidator
-import re 
+import re
 
 
 email_validator = EmailValidator()
@@ -36,11 +36,11 @@ class UserService(object):
     def auth(self, username, password):
         user = self.repo.find_by_username(username)
         if not user:
-            return {'status' : 404, 'msg': 'not found'}
+            return {'status': 404, 'msg': 'not found'}
 
         if user and not user.inactive() and user.check(password):
-            return {'status' : 200, 'msg': 'auth success', 'user': user}
-        return {'status' : 403, 'msg': 'username or password is invaild'}
+            return {'status': 200, 'msg': 'auth success', 'user': user}
+        return {'status': 403, 'msg': 'username or password is invaild'}
 
     def login(self, user):
         session.permanent = True
@@ -54,7 +54,7 @@ class UserService(object):
         users = self.repo.take(page, perpage)
         page = Paginator(users, total, page, perpage, '/admin/user')
         return page
-    
+
     def user_count(self):
         return self.repo.count()
 
@@ -83,14 +83,14 @@ class UserService(object):
             role = 'user'
 
         if self.repo.find_by_username(username):
-             errors.append(text('user.username_used'))
-        
+            errors.append(text('user.username_used'))
+
         if errors:
             return {'status': 'error', 'errors': errors}
 
         user = User(username, email, real_name, password, bio, status, role)
         user.uid = self.repo.create(user)
-        return  {'status': 'ok', 'msg': 'saved', 'user': user}
+        return {'status': 'ok', 'msg': 'saved', 'user': user}
 
     def update_user(self, uid, email, real_name, password, newpass1, newpass2, bio, status, role='user'):
         real_name, newpass1, newpass2, bio = real_name.strip(), newpass1.strip(), newpass2.strip(), bio.strip()
@@ -124,7 +124,6 @@ class UserService(object):
         if errors:
             return {'status': 'error', 'errors': errors}
 
-
         if me.is_root() or me.uid == uid:
             if me.is_root() and not user.is_root():
                 if role in (User.ADMIN, User.USER. User.EDITOR):
@@ -139,4 +138,4 @@ class UserService(object):
                 user.bio = bio
 
         self.repo.save(user)
-        return  {'status': 'ok', 'msg': 'updated', 'user': user}
+        return {'status': 'ok', 'msg': 'updated', 'user': user}

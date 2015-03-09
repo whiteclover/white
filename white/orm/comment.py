@@ -55,7 +55,7 @@ class CommentMapper(BaseMapper):
     def create(self, comment):
         """Create a new comment"""
         return db.execute("INSERT INTO comments(post_id, name, email, content, status, created) VALUES(%s, %s, %s, %s, %s, %s)",
-                          (comment.post_id, comment.name, comment.email, comment.content, comment.status, comment.created))
+            (comment.post_id, comment.name, comment.email, comment.content, comment.status, comment.created))
 
     def save(self, comment):
         """Save Comment"""

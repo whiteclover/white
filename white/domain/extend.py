@@ -37,21 +37,22 @@ class ExtendService(object):
     def field_page(self, page=1, perpage=10):
         total = self.extend_repo.count()
         pages = self.extend_repo.paginate(page, perpage)
-        pagination = Paginator(pages, total, page, perpage, '/admin/extend/field')
+        pagination = Paginator(
+            pages, total, page, perpage, '/admin/extend/field')
         return pagination
-
 
     def get_fields_by_type(self, type='post', node_id=None):
         extends = self.extend_repo.find_by_type(type)
         if node_id is None:
             load_meta = lambda extend: Meta(0, type, extend)
         else:
-            load_meta = lambda extend: self.meta_repo.find(type, node_id, extend.eid) or Meta(0, type, extend)
+            load_meta = lambda extend: self.meta_repo.find(
+                type, node_id, extend.eid) or Meta(0, type, extend)
 
         return [Field(extend, load_meta(extend)) for extend in extends]
 
     def count(self, key, type):
-    	return self.extend_repo.count(key=key, type=type)
+        return self.extend_repo.count(key=key, type=type)
 
     def create_extend(self, type, key, label, field, attributes):
         extend = Extend(type, key, label, field, attributes)
@@ -77,7 +78,6 @@ class ExtendService(object):
         FieldMananger(node, type).process()
 
 
-
 class FieldMananger(object):
 
     def __init__(self, node, type='post'):
@@ -87,11 +87,11 @@ class FieldMananger(object):
     def process(self):
         type = self.type
         item_id = self.node.pid
-        data  = None
+        data = None
         for extend in Backend('extend').find_by_type(type):
             process = getattr(self, 'process_' + extend.field, None)
-            #if process:
-            
+            # if process:
+
             data = process(extend)
 
             if data:

@@ -17,6 +17,7 @@
 from white.orm import Backend
 from white.lib.paginator import Paginator
 
+
 class MenuService(object):
 
     def __init__(self):
@@ -27,6 +28,5 @@ class MenuService(object):
         return pages
 
     def update(self, sort):
-        for menu_order,pid  in enumerate(sort):
+        for menu_order, pid in enumerate(sort):
             self.page_repo.update_menu_order(pid, menu_order)
-

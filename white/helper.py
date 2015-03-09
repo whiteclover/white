@@ -17,47 +17,49 @@
 from white.lib.memoize import memoize
 from white.orm import Backend
 
+
 @memoize()
 def categories():
-	return Backend('category').categories()
+    return Backend('category').categories()
+
 
 @memoize()
 def menus():
-	return Backend('page').menu(True)
+    return Backend('page').menu(True)
+
 
 @memoize()
 def cached_user(uid):
-	return Backend('user').find(uid)
+    return Backend('user').find(uid)
 
 
 class SiteConfig(object):
 
-	def sitename(self):
-		return self.config.get('sitename', 'White')
+    def sitename(self):
+        return self.config.get('sitename', 'White')
 
-	def description(self):
-		return self.config.get('site_description', '')
+    def description(self):
+        return self.config.get('site_description', '')
 
-	def posts_per_page(self, perpage=10):
-		return self.config.get('posts_per_page', perpage)
+    def posts_per_page(self, perpage=10):
+        return self.config.get('posts_per_page', perpage)
 
+    def comment_moderation_keys(self):
+        return self.config.get('comment_moderation_keys', [])
 
-	def comment_moderation_keys(self):
-		return self.config.get('comment_moderation_keys', [])
+    def get(self, key, default=None):
+        return self.config.get(key, default)
 
-	def get(self, key, default=None):
-		return self.config.get(key, default)
+    @property
+    def config(self):
+        return self._config()
 
-	@property
-	def config(self):
-		return self._config()
+    @memoize()
+    def _config(self):
+        return Backend('storage').find('system').json_value()
 
-	@memoize()
-	def _config(self):
-		return Backend('storage').find('system').json_value()
-
-	def clear_cache(self):
-		self._config.cache.flush()
+    def clear_cache(self):
+        self._config.cache.flush()
 
 
 site = SiteConfig()

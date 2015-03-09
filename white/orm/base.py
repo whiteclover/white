@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from white.ext  import db
+from white.ext import db
 
 
 class BaseMapper(object):

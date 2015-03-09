@@ -40,6 +40,7 @@ def field_page(page=1):
     extends = extend_service.field_page(page)
     return render_template('admin//extend/field/index.html', fields=extends)
 
+
 @bp.route('/extend/field/add', methods=['GET', 'POST'])
 @security(ADMIN)
 def field_add():
@@ -54,17 +55,17 @@ def field_add():
     key = key or label
 
     validator = Validator()
-    validator.add('valid_key', lambda key: extend_service.count(key, _type) == 0)
+    validator.add(
+        'valid_key', lambda key: extend_service.count(key, _type) == 0)
     (validator
         .check(key, 'min', text('extend.key_missing'), 1)
-        .check( key, 'valid_key', text('extend.key_exists'))
+        .check(key, 'valid_key', text('extend.key_exists'))
         .check(label, 'min', text('extend.label_missing'), 1)
-    )
+     )
 
     if validator.errors:
         flash(validator.errors, 'error')
         return render_template('admin/extend/field/add.html')
-
 
     if field == 'image':
         attributes = {
@@ -81,9 +82,9 @@ def field_add():
     else:
         attributes = {}
 
-
     extend_service.create_extend(_type, key, label, field, attributes)
     return redirect(url_for('admin.field_page'))
+
 
 @bp.route('/extend/field/<int:extend_id>/edit', methods=['GET', 'POST'])
 @security(ADMIN)
@@ -103,13 +104,11 @@ def field_edit(extend_id):
     (validator
         .check(key, 'min', text('extend.key_missing'), 1)
         .check(label, 'min', text('extend.label_missing'), 1)
-    )
-
+     )
 
     if validator.errors:
         flash(validator.errors, 'error')
         return redirect(url_for('admin.field_edit', extend_id=extend_id))
-
 
     if field == 'image':
         attributes = {
@@ -126,8 +125,8 @@ def field_edit(extend_id):
     else:
         attributes = {}
 
-
-    extend_service.update_extend(_type, key, label, field, attributes, extend_id)
+    extend_service.update_extend(
+        _type, key, label, field, attributes, extend_id)
     return redirect(url_for('admin.field_edit', extend_id=extend_id))
 
 
@@ -136,4 +135,3 @@ def field_edit(extend_id):
 def field_delete(extend_id):
     extend_service.delete_extend(extend_id)
     return redirect(url_for('admin.field_page'))
-

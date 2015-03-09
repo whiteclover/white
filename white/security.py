@@ -25,21 +25,23 @@ from white.model import User
 from flask import g, session, request, abort, redirect, url_for, current_app, render_template
 
 
-_guest = User('guest', 'email', 'Guest', 'password', 'bio', 'active', 'guest', uid=0)
+_guest = User(
+    'guest', 'email', 'Guest', 'password', 'bio', 'active', 'guest', uid=0)
+
 
 def security(role=None):
     def decorator(f):
         @wraps(f)
         def _decorator(*args, **kw):
             me = g.user
-            if me.is_guest() and request.path !='admin/login':
+            if me.is_guest() and request.path != 'admin/login':
                 return redirect(url_for('admin.login'))
-            access = False 
+            access = False
             if me.is_root():
                 access = True
             elif not me.inactive() and (me.is_admin() or me.role == role):
                 access = True
-                
+
             if access:
                 return f(*args, **kw)
             else:
@@ -72,9 +74,11 @@ def csrf_protect(f):
 
     return f
 
+
 def generate_csrf_token():
     if '_csrf_token' not in session:
-        session['_csrf_token'] = _secert_signature(current_app.config['CSRF_SECRET'], str(uuid.uuid4()))
+        session['_csrf_token'] = _secert_signature(
+            current_app.config['CSRF_SECRET'], str(uuid.uuid4()))
     return session['_csrf_token']
 
 

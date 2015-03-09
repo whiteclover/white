@@ -42,6 +42,7 @@ COMMENT_STATUSES = [
     {'url': 'spam', 'lang': text('global.spam'), 'class': 'spam'}
 ]
 
+
 @bp.route('/comment')
 @bp.route('/comment/<status>')
 @bp.route('/comment/<status>/<int:page>')
@@ -49,9 +50,9 @@ COMMENT_STATUSES = [
 def comment_page(page=1, status='all'):
     pagination = comment_service.page(status, page, site.posts_per_page())
     return render_template('admin//comment/index.html',
-            statuses=COMMENT_STATUSES,
-            status=status,
-            comments=pagination)
+                           statuses=COMMENT_STATUSES,
+                           status=status,
+                           comments=pagination)
 
 
 @bp.route('/comment/<int:comment_id>/edit', methods=['GET', 'POST'])
@@ -59,14 +60,14 @@ def comment_page(page=1, status='all'):
 def comment_edit(comment_id):
     if request.method == 'GET':
         statuses = {
-            'approved' :text('global.approved'),
-            'pending' :text('global.pending'),
-            'spam' :text('global.spam')
+            'approved': text('global.approved'),
+            'pending': text('global.pending'),
+            'spam': text('global.spam')
         }
         comment = comment_service.get(comment_id)
-        return render_template('admin/comment/edit.html', 
-            comment=comment,
-            statuses=statuses)
+        return render_template('admin/comment/edit.html',
+                               comment=comment,
+                               statuses=statuses)
 
     p = request.form.get
     name = p('name')
@@ -79,12 +80,13 @@ def comment_edit(comment_id):
     validator = Validator()
     (validator.check(name, 'min', text('comment.name_missing'), 1)
         .check(content, 'min', text('comment.content_missing'), 1)
-    )
+     )
     if validator.errors:
         flash(validator.errors, 'error')
         return redirect(url_for('admin.comment_edit', comment_id=comment_id))
 
-    comment = comment_service.update_comment(comment_id, name, email, content, status)
+    comment = comment_service.update_comment(
+        comment_id, name, email, content, status)
     flash(text('comment.updated'), 'success')
     return redirect(url_for('admin.comment_edit', comment_id=comment.cid))
 
@@ -95,5 +97,3 @@ def comment_delete(comment_id):
     comment_service.delete(comment_id)
     flash(text('comment.deleted'), 'success')
     return redirect(url_for('admin.comment_page'))
-
-

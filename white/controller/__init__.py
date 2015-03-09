@@ -20,18 +20,18 @@ admin = Blueprint('admin', 'admin')
 site = Blueprint('site', 'site')
 
 
-ADMIN, EDITOR  =  'administrator', 'editor'
+ADMIN, EDITOR = 'administrator', 'editor'
 
 
 from . import (
-	user, 
-	page,
-	category,
-	comment,
-	extend,
-	field,
-	front,
-	menu,
-	post,
-	metadata
+    user,
+    page,
+    category,
+    comment,
+    extend,
+    field,
+    front,
+    menu,
+    post,
+    metadata
 )

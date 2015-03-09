@@ -14,7 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
 from flask import render_template, redirect, url_for
 
 from flask import g, request, current_app
@@ -33,13 +32,15 @@ from white.lib.validator import Validator
 
 category_service = CategoryService()
 
+
 @bp.route('/category')
 @bp.route('/category/<int:page>')
 @security(ADMIN)
 def category_page(page=1):
     pagination = category_service.page(page)
-    return render_template('admin/category/index.html', 
-            categories=pagination)
+    return render_template('admin/category/index.html',
+                           categories=pagination)
+
 
 @bp.route('/category/add', methods=['GET', 'POST'])
 @security(ADMIN)
@@ -61,6 +62,7 @@ def category_add():
     category_service.add_category(title, slug, description)
     return redirect(url_for('admin.category_page'))
 
+
 @bp.route('/category/<int:category_id>/edit', methods=['GET', 'POST'])
 @security(ADMIN)
 def category_edit(category_id):
@@ -79,9 +81,11 @@ def category_edit(category_id):
         flash(validator.errors, 'error')
         return redirect(url_for('admin.category_edit', category_id=category_id))
 
-    category = category_service.update_category(category_id, title, slug, description)
+    category = category_service.update_category(
+        category_id, title, slug, description)
     flash(text('category.updated'), 'success')
     return redirect(url_for('admin.category_edit', category_id=category.cid))
+
 
 @bp.route('/category/<int:category_id>/delete', methods=['GET', 'POST'])
 @security(ADMIN)
@@ -89,7 +93,7 @@ def category_delete(category_id):
     if category_id == 1:
         flash('The Uncategory cann\'t delete', 'error')
         return redirect(url_for('admin.category_page'))
-        
+
     category_service.delete(category_id)
     flash(text('category.deleted'), 'success')
     return redirect(url_for('admin.category_page'))

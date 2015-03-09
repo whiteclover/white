@@ -24,15 +24,17 @@ from white.domain.menu import MenuService
 
 menuservice = MenuService()
 
+
 @bp.route('/menu')
 @security(ADMIN)
 def menu_page():
     pages = menuservice.menu(True)
-    
-    return render_template('admin/menu/index.html', messages='',
-            pages = pages)
 
-@bp.route('/menu/update', methods=['GET','POST'])
+    return render_template('admin/menu/index.html', messages='',
+                           pages=pages)
+
+
+@bp.route('/menu/update', methods=['GET', 'POST'])
 @security(ADMIN)
 def menu_update():
     sort = request.form.getlist('sort')

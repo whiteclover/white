@@ -25,116 +25,115 @@ import codecs
 import os
 import os.path
 
+
 class WhiteServer(object):
 
+    def __init__(self):
+        patch_flask()
+        self.app = Flask(
+            'white', template_folder='view', static_folder='asset')
+        self.options = self.cmd_options()
 
-	def __init__(self):
-		patch_flask()
-		self.app = Flask('white', template_folder='view', static_folder = 'asset')
-		self.options = self.cmd_options()
+    def cmd_options(self):
+        from argparse import ArgumentParser
+        parser = ArgumentParser(usage="whited [options]")
+        _ = parser.add_argument
+        _('-host', '--host', help='the host for run server',
+          default='localhost')
+        _('-p', '--port', help='the port for run server',
+          type=int, default=5000)
+        _("-d", "--debug", action='store_true', default=False,
+          help="open debug mode (default %(default)r)")
+        _("-c", "--config", default='/etc/white/config',
+          help="config path (default %(default)r)", metavar="FILE")
+        return parser.parse_args()
 
-	def cmd_options(self):
-	    from argparse import ArgumentParser
-	    parser = ArgumentParser(usage="whited [options]")
-	    _ = parser.add_argument
-	    _('-host', '--host', help='the host for run server', default='localhost')
-	    _('-p', '--port', help='the port for run server', type=int, default=5000)
-	    _("-d", "--debug", action='store_true', default=False, help="open debug mode (default %(default)r)")
-	    _("-c", "--config", default='/etc/white/config',
-	          help="config path (default %(default)r)", metavar="FILE")
-	    return parser.parse_args()
+    def bootstrap(self):
+        self.bootstrap_setting()
+        self.bootstrap_database()
+        self.bootstrap_hooks()
+        self.bootstrap_routes()
+        self.bootstrap_errorpage()
 
+        return self.app
 
-	def bootstrap(self):
-		self.bootstrap_setting()
-		self.bootstrap_database()
-		self.bootstrap_hooks()
-		self.bootstrap_routes()
-		self.bootstrap_errorpage()
+    def bootstrap_setting(self):
+        config = self.load_config()
+        if not config:
+            raise Exception("Load App Setting failed")
+        self.app.config.from_object(config)
 
-		return self.app
+        if self.options.debug:
+            self.app.config['DEBUG'] = True
+            self.app.debug = True
 
-			
-	def bootstrap_setting(self):
-		config = self.load_config()
-		if not config:
-			raise Exception("Load App Setting failed")
-		self.app.config.from_object(config)
+        from white.ext import session
+        session.app = self.app
+        session.init_app(self.app)
 
-		if self.options.debug:
-			self.app.config['DEBUG'] = True
-			self.app.debug = True
+        from white import lang
+        from white.lang import text
+        from white.flash import flash
+        from white.helper import categories, menus, site
+        from white.ext import markdown
+        lang.setup(self.app.config.get('LANGUAGE', 'zh_CN'))
 
-		from white.ext import session
-		session.app = self.app
-		session.init_app(self.app)
+        self.app.jinja_env.globals.update(__=text)
+        self.app.jinja_env.globals.update(
+            flash=flash, site_categories=categories, menus=menus)
+        self.app.jinja_env.globals.update(site=site, enumerate=enumerate)
 
+        self.app.jinja_env.filters['markdown'] = markdown.convert
 
-		from white import lang
-		from white.lang import text
-		from white.flash import flash
-		from white.helper import categories, menus, site
-		from white.ext import markdown
-		lang.setup(self.app.config.get('LANGUAGE', 'zh_CN'))
+    def load_config(self):
+        with codecs.open(self.options.config, "r", "utf-8") as f:
+            code = f.read()
+            ns = {}
+            exec code in ns
+            return ns.get('Setting')
 
-		self.app.jinja_env.globals.update(__=text)
-		self.app.jinja_env.globals.update(flash=flash, site_categories=categories, menus=menus)
-		self.app.jinja_env.globals.update(site=site, enumerate=enumerate)
+    def bootstrap_errorpage(self):
+        from flask import render_template
+        from white.controller.front import page_redirect, theme_render
 
+        @self.app.errorhandler(403)
+        def forbidden(e):
+            return theme_redner('403.html'), 403
 
-		self.app.jinja_env.filters['markdown'] = markdown.convert
+        @self.app.errorhandler(404)
+        def not_found(e):
+            return page_redirect()
 
-	def load_config(self):
-		with codecs.open(self.options.config, "r", "utf-8") as f:
-			code = f.read()
-			ns = {}
-			exec code in ns
-			return ns.get('Setting')
+    def bootstrap_hooks(self):
+        """Hooks for request."""
+        from white.security import init_user
 
+        self.app.before_request(init_user)
 
-	def bootstrap_errorpage(self):
-		from flask import render_template
-		from white.controller.front import page_redirect, theme_render
+    def bootstrap_database(self):
+        """Init Database Settings"""
+        from white.ext import db
+        from white import orm
 
-		@self.app.errorhandler(403)
-		def forbidden(e):
-   			return theme_redner('403.html'), 403
+        config = self.app.config.get('DB_CONFIG')
+        minconn = self.app.config.get('MINCONN', 5)
+        maxconn = self.app.config.get('MAXCONN', 10)
+        db.setup(config, minconn=minconn, maxconn=maxconn)
 
-		@self.app.errorhandler(404)
-		def not_found(e):
-			return page_redirect()
+        orm.setup()
 
-	def bootstrap_hooks(self):
-		"""Hooks for request."""
-		from white.security import init_user
+    def bootstrap_routes(self):
+        from white.controller import admin, site
+        self.app.register_blueprint(admin, url_prefix='/admin')
+        self.app.register_blueprint(site, url_prefix='')
 
-		self.app.before_request(init_user)
-
-	def bootstrap_database(self):
-		"""Init Database Settings"""
-		from white.ext import db
-		from white import orm
-		
-		config = self.app.config.get('DB_CONFIG')
-		minconn = self.app.config.get('MINCONN', 5)
-		maxconn = self.app.config.get('MAXCONN', 10)
-		db.setup(config, minconn=minconn, maxconn=maxconn)
-
-		orm.setup()
-
-	def bootstrap_routes(self):
-		from white.controller import admin, site
-		self.app.register_blueprint(admin, url_prefix='/admin')
-		self.app.register_blueprint(site, url_prefix='')
-
-
-	def serve_forever(self):
-		from gevent.wsgi import WSGIServer
-		debug = self.app.config.get('DEBUG', True)
-		host = self.options.host or host 
-		port = self.options.port
-		if not debug:
-			http_server = WSGIServer((host, port), self.app, log=debug)
-			http_server.serve_forever()
-		else:
-			self.app.run(host, port)
+    def serve_forever(self):
+        from gevent.wsgi import WSGIServer
+        debug = self.app.config.get('DEBUG', True)
+        host = self.options.host or host
+        port = self.options.port
+        if not debug:
+            http_server = WSGIServer((host, port), self.app, log=debug)
+            http_server.serve_forever()
+        else:
+            self.app.run(host, port)

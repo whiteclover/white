@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import re 
+import re
 
 from white.orm import Backend
 from white.model import Comment
@@ -42,7 +42,7 @@ class CommentService(object):
         comment = Comment(post.pid, name, email, content, status)
         if self.is_spam(comment):
             comment.status = 'spam'
-        cid= self.comment_repo.create(comment)
+        cid = self.comment_repo.create(comment)
         comment.cid = cid
         return comment
 
@@ -52,17 +52,17 @@ class CommentService(object):
             if word.strip() and re.match(word, comment.content, re.I):
                 return True
 
-    	domain = comment.email.split('@')[1]
-    	if self.comment_repo.spam_count(domain):
-    		return True
-    	return False
+        domain = comment.email.split('@')[1]
+        if self.comment_repo.spam_count(domain):
+            return True
+        return False
 
     def update_comment(self, comment_id, name, email, content, status):
         comment = self.get(comment_id)
         if not comment:
             return None
         comment.status = status
-        comment.name = name 
+        comment.name = name
         comment.content = content
         comment.email = email
         self.comment_repo.save(comment)

@@ -14,12 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import os, sys
-from PIL import Image 
+import os
+import sys
+from PIL import Image
 
 
 def img_resize(path, size):
-	im = Image.open(path)
-	# im.resize(size)
-	im.thumbnail(size, Image.ANTIALIAS)
-	im.save(path)
+    im = Image.open(path)
+    # im.resize(size)
+    im.thumbnail(size, Image.ANTIALIAS)
+    im.save(path)

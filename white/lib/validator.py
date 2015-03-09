@@ -14,26 +14,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
 import re
+
 
 class EmailValidator(object):
     email_pattern = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+
     def __call__(self, email):
         return self.email_pattern.match(email) is not None
+
 
 class URLValidator(object):
 
     url_pattern = re.compile(
-        r'^(?:http|ftp)s?://' # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-      #  r'localhost|' #localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?' # optional port
+        r'^(?:http|ftp)s?://'  # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
+        # r'localhost|' #localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
+        r'(?::\d+)?'  # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    
+
     def __call__(self, url):
         return self.url_pattern.match(url) is not None
+
 
 class IPValidator(object):
 
@@ -71,7 +74,6 @@ class IPValidator(object):
         )
         $
     """, re.VERBOSE | re.IGNORECASE)
-    
 
     ip6_pattern = re.compile(r"""
         ^
@@ -100,7 +102,6 @@ class IPValidator(object):
         $
     """, re.VERBOSE | re.IGNORECASE | re.DOTALL)
 
-
     def __call__(self, ip):
         return (self.ip4_pattern.match(ip) is not None) or (self.ip6_pattern.match(ip) is not None)
 
@@ -120,10 +121,9 @@ class Validator(object):
     validators['contains'] = lambda text, needle: text.find(needle) != -1
     validators['regex'] = lambda text, pattern: re.match(pattern, text)
 
-    def __init__(self): 
+    def __init__(self):
         self.errors = []
         self._validators = self.validators.copy()
-
 
     def add(self, method, callback):
         self._validators[method] = callback

@@ -54,14 +54,15 @@ def content_asset(asset):
 
 
 def page_redirect():
-    path = request.path 
+    path = request.path
     page = page_service.get_by_redirect(path)
     if not page:
         return theme_render('404.html', page_title='Not Found'), 404
-    return theme_render('page.html', 
-        page_content=page.content,
-        page_title=page.title,
-        page=page)
+    return theme_render('page.html',
+                        page_content=page.content,
+                        page_title=page.title,
+                        page=page)
+
 
 @site.route('/')
 @site.route('/<slug>')
@@ -82,13 +83,13 @@ def page(slug=None):
             return posts()
         else:
             page = page_service.get(site_page)
-        
+
     if not page:
         abort(404)
-    return theme_render('page.html', 
-        page_content=page.content,
-        page_title=page.title,
-        page=page)
+    return theme_render('page.html',
+                        page_content=page.content,
+                        page_title=page.title,
+                        page=page)
 
 
 @site.route('/posts')
@@ -98,13 +99,13 @@ def page(slug=None):
 def posts(page=1, category=None):
     if page <= 0:
         theme_render('404.html')
-    total, posts = post_service.get_published_posts_page(page, config.posts_per_page(), category)
-    return theme_render('posts.html', 
-        page_title='posts',
-        post_total=total,
-        posts=posts,
-        page_offset=page)
-
+    total, posts = post_service.get_published_posts_page(
+        page, config.posts_per_page(), category)
+    return theme_render('posts.html',
+                        page_title='posts',
+                        post_total=total,
+                        posts=posts,
+                        page_offset=page)
 
 
 @site.route('/post/<slug>')
@@ -114,11 +115,10 @@ def post(slug):
         return theme_render('404.html')
 
     return theme_render('article.html',
-        page_title=post.title,
-        article=post,
-        comments=post.comments,
-        category=category_service.get_by_cid(post.category))
-
+                        page_title=post.title,
+                        article=post,
+                        comments=post.comments,
+                        category=category_service.get_by_cid(post.category))
 
 
 def search():
@@ -126,10 +126,10 @@ def search():
     page = request.args.get('page', type=int, default=1)
     pages = post_service.search(key, page)
 
-    return theme_render('search.html', 
-        page_title='Serach Article',
-        search_term=key,
-        articles=pages)
+    return theme_render('search.html',
+                        page_title='Serach Article',
+                        search_term=key,
+                        articles=pages)
 
 
 @site.route('/post/comment/<slug>', methods=['POST'])
@@ -140,24 +140,25 @@ def post_comment(slug):
 
     if post and not post.allow_comment:
         return redirect(url_for('site.post', slug=slug))
-        
+
     p = request.form.get
     name = p('name', default='')
     email = p('email', default='')
-    content  = p('content', default='')
+    content = p('content', default='')
 
     name, content, email = name.strip(), content.strip(), email.strip()
 
     validator = Validator()
     (validator.check(email, 'email', text('comment.email_missing'))
         .check(content, 'min', text('comment.email_missing'), 1)
-    )
+     )
 
     if validator.errors:
         flash(validator.errors, 'error')
         return redirect(url_for('site.post', slug=slug))
 
-    status = config.get('auto_published_comments', False) and  'approved' or 'pending'
+    status = config.get(
+        'auto_published_comments', False) and 'approved' or 'pending'
     comment_service.add_comment(name, email, content, status, post)
 
     return redirect(url_for('site.post', slug=slug))
@@ -168,16 +169,16 @@ def feed_json():
     return jsonify(_feed_json())
 
 
-@memoize(lifetime=30*60)
+@memoize(lifetime=30 * 60)
 def _feed_json():
     posts = []
     for post in post_service.get_published_posts():
-        data = dict(author = post.user.username, 
-            html = markdown.convert(post.html),
-            url = urljoin(request.url_root,  '/post/' + post.slug),
-            updated=post.updated,
-            published=post.created
-        )
+        data = dict(author=post.user.username,
+                    html=markdown.convert(post.html),
+                    url=urljoin(request.url_root,  '/post/' + post.slug),
+                    updated=post.updated,
+                    published=post.created
+                    )
         posts.append(data)
 
     rss = {
@@ -192,12 +193,12 @@ def _feed_json():
 
 @site.route('/feed/rss')
 def feed_rss():
-    response= make_response(_feed_rss())
+    response = make_response(_feed_rss())
     response.headers['Content-Type'] = 'application/xml'
     return response
 
 
-@memoize(lifetime=30*60)
+@memoize(lifetime=30 * 60)
 def _feed_rss():
     feed = AtomFeed(title=config.sitename(), subtitle='Recent Articles',
                     feed_url=request.url, url=request.url_root, updated=datetime.now())

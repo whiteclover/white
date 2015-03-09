@@ -22,6 +22,7 @@ from flask import Flask, json, current_app, request
 
 
 class JSONEncoder(_JSONEncoder):
+
     def default(self, o):
         if hasattr(o, '__json__') and callable(o.__json__):
             return o.__json__()
@@ -36,6 +37,7 @@ class JSONEncoder(_JSONEncoder):
         elif hasattr(o, '__html__'):
             return text_type(o.__html__())
         return _JSONEncoder.default(self, o)
+
 
 def jsonify(value):
     """Creates a :class:`~flask.Response` with the JSON representation of
@@ -74,11 +76,12 @@ def jsonify(value):
     """
     indent = None
     if current_app.config['JSONIFY_PRETTYPRINT_REGULAR'] \
-        and not request.is_xhr:
+            and not request.is_xhr:
         indent = 2
-    return current_app.response_class(dumps(value ,
-        indent=indent),
-        mimetype='application/json')
+    return current_app.response_class(dumps(value,
+                                            indent=indent),
+                                      mimetype='application/json')
+
 
 def patch_flask():
     flask.json.jsonify = jsonify

@@ -14,43 +14,37 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-
 class Config:
 
     DEBUG = True
 
-
-    ## csrf protect
+    # csrf protect
     # CSRF_SECRET = 'fRLoWItHQQajq//4ebYUDewXVF2B9UEznoVD7kC7D9o='
-    
-    ## Flask Session module
+
+    # Flask Session module
     # session
     SECRET_KEY = '7oGwHH8NQDKn9hL12Gak9G/MEjZZYk4PsAxqKU4cJoY='
     SESSION_TYPE = 'filesystem'
     SESSION_FILE_DIR = '/var/www/$yoursite.com/cookies'
 
-
-    ###### 
+    ######
     # Wanna use redis session, please comment filesystem session settings
     # SESSION_TYPE = 'redis'
-    # import redis 
+    # import redis
     # SESSION_REDIS = redis.Redis()
     # PERMANENT_SESSION_LIFETIME = datetime.timedelta(60)
-
-
 
     SESSION_FILE_THRESHOLD = 100
     SESSION_FILE_MODE = 0600
 
-
-    ## DB Config
-    DB_CONFIG  = {
+    # DB Config
+    DB_CONFIG = {
         'db': 'white',
         'user': 'white',
         'passwd': 'white',
         'host': 'localhost',
 
-        'max_idle' : 10 # the mysql timeout setting
+        'max_idle': 10  # the mysql timeout setting
     }
     DB_MAXCONN = 10
     DB_MINCONN = 5
@@ -58,6 +52,6 @@ class Config:
     # the custom fields asset path
     CONTENT_PATH = '/var/www/$yoursite.com/content'
 
-    LANGUAGE = 'zh_CN' # in ('zh_CN', 'zh_TW', 'en_GB')
+    LANGUAGE = 'zh_CN'  # in ('zh_CN', 'zh_TW', 'en_GB')
 
-    THEME = 'default' # the froent theme name
+    THEME = 'default'  # the froent theme name
