@@ -55,6 +55,9 @@ def init_user():
         if 'auth' in session:
             uid = session['auth']
             user = Backend('user').find(uid)
+        if user is None:
+            session.pop('auth', None)
+            user = _guest
     except:
         user = _guest
     g.user = user
