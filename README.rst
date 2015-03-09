@@ -5,8 +5,10 @@ White
 White is a blog cms. it's based `Anchor-cms <https://github.com/anchorcms/anchor-cms>`_ that a blog cms wrote by php.
 The White project keeps the most of achor-cms features, but pythonic and some new feartures:
 
-#. markdown blog
+#. write blog use markdown
 #. custom field extension
+#. custom theme
+#. multi-languages support
 #. rss feed
 #. some monitor api for mananger
 #. database connection pool
