@@ -10,6 +10,7 @@ The White project keeps the most of achor-cms features, but pythonic and some ne
 #. rss feed
 #. some monitor api for mananger
 #. database connection pool
+#. memozie cache
 #. take advantage of Flask and Jinjia2
 
 
