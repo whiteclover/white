@@ -27,7 +27,7 @@ class Config:
     # session
     SECRET_KEY = '7oGwHH8NQDKn9hL12Gak9G/MEjZZYk4PsAxqKU4cJoY='
     SESSION_TYPE = 'filesystem'
-    SESSION_FILE_DIR = '/var/www/$yoursite.com/content'
+    SESSION_FILE_DIR = '/var/www/$yoursite.com/cookies'
 
 
     ###### 
