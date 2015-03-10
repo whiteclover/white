@@ -66,7 +66,7 @@
             </p>
             <p>
                 <label>{{__('post.allow_comments')}}:</label>
-                <input type="checkbox" name='comments' value="1" {{ 'checked' if article.comments == 1 else ''}}>
+                <input type="checkbox" name='comments' value="1" {{ 'checked' if article.allow_comment == 1 else ''}}>
                 <em>{{__('post.allow_comments_explain')}}</em>
             </p>
             <label for="custom_css">{{__('post.custom_css')}}:</label>

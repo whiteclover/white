@@ -19,7 +19,10 @@ from white.setting import Config
 
 class Setting(Config):
 
-    DEBUG = True
+    HOST = 'localhost' # server host
+    PORT = 5000 # server port
+
+    DEBUG = True # open debug mode
 
     
     ## Flask Session module
@@ -57,6 +60,6 @@ class Setting(Config):
     # the custom fields asset path
     CONTENT_PATH = '/var/www/$yoursite.com/content'
 
-    LANGUAGE = 'zh_CN' # in ('zh_CN', 'zh_TW', 'en_GB')
+    LANGUAGE = 'en_GB' # in ('zh_CN', 'zh_TW', 'en_GB')
 
     THEME = 'default' # the froent theme name
