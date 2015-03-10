@@ -254,6 +254,23 @@ Get Site meta.
 	  "sitename": "White"
 	}
 
+Get /admin/user.json
+-----------------------
+
+Get current user info.
+
+.. code-block:: json
+	
+	{
+	  "bio": "", 
+	  "email": "white@demo.com", 
+	  "real_name": "White", 
+	  "role": "root", 
+	  "status": "active", 
+	  "uid": 1, 
+	  "username": "white"
+	}
+
 LICENSE
 =======
 
