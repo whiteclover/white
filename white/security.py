@@ -46,7 +46,6 @@ def security(role=None):
             elif me.is_admin and role in (User.EDITOR, None):
                 access = True
 
-
             if access:
                 return f(*args, **kw)
             else:

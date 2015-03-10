@@ -65,7 +65,7 @@ class WhiteServer(object):
             self.app.config['HOST'] = self.options.host
 
         if self.options.port is not None:
-            self.app.config['port'] = self.options.port
+            self.app.config['PORT'] = self.options.port
 
         from white.ext import session
         session.app = self.app
@@ -131,7 +131,7 @@ class WhiteServer(object):
         from gevent.wsgi import WSGIServer
         debug = self.app.config.get('DEBUG', True)
         host = self.app.config.get('HOST', 'localhost')
-        port = self.app.config.get('port', 5000)
+        port = self.app.config.get('PORT', 5000)
         if not debug:
             http_server = WSGIServer((host, port), self.app, log=debug)
             http_server.serve_forever()
