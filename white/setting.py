@@ -16,7 +16,10 @@
 
 class Config:
 
-    DEBUG = True
+    HOST = 'localhost' # server host
+    PORT = 5000 # server port
+
+    DEBUG = True # open debug mode
 
     # csrf protect
     # CSRF_SECRET = 'fRLoWItHQQajq//4ebYUDewXVF2B9UEznoVD7kC7D9o='
@@ -52,6 +55,6 @@ class Config:
     # the custom fields asset path
     CONTENT_PATH = '/var/www/$yoursite.com/content'
 
-    LANGUAGE = 'zh_CN'  # in ('zh_CN', 'zh_TW', 'en_GB')
+    LANGUAGE = 'en_GB'  # in ('zh_CN', 'zh_TW', 'en_GB')
 
     THEME = 'default'  # the froent theme name

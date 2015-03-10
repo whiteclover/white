@@ -39,9 +39,9 @@ class WhiteServer(object):
         parser = ArgumentParser(usage="whited [options]")
         _ = parser.add_argument
         _('-host', '--host', help='the host for run server',
-          default='localhost')
+          default=None)
         _('-p', '--port', help='the port for run server',
-          type=int, default=5000)
+          type=int, default=None)
         _("-d", "--debug", action='store_true', default=False,
           help="open debug mode (default %(default)r)")
         _("-c", "--config", default='/etc/white/config',
@@ -67,6 +67,14 @@ class WhiteServer(object):
             self.app.config['DEBUG'] = True
             self.app.debug = True
 
+
+        if self.options.host is not None:
+            self.app.config['HOST'] = self.options.host
+
+        if self.options.port is not None:
+            self.app.config['port'] = self.options.port
+
+
         from white.ext import session
         session.app = self.app
         session.init_app(self.app)
@@ -76,7 +84,7 @@ class WhiteServer(object):
         from white.flash import flash
         from white.helper import categories, menus, site
         from white.ext import markdown
-        lang.setup(self.app.config.get('LANGUAGE', 'zh_CN'))
+        lang.setup(self.app.config.get('LANGUAGE', 'en_GB'))
 
         self.app.jinja_env.globals.update(__=text)
         self.app.jinja_env.globals.update(
@@ -130,8 +138,8 @@ class WhiteServer(object):
     def serve_forever(self):
         from gevent.wsgi import WSGIServer
         debug = self.app.config.get('DEBUG', True)
-        host = self.options.host or host
-        port = self.options.port
+        host = self.app.config.get('HOST', 'localhost')
+        port = self.app.config.get('port', 5000)
         if not debug:
             http_server = WSGIServer((host, port), self.app, log=debug)
             http_server.serve_forever()
