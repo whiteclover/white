@@ -39,8 +39,13 @@ def security(role=None):
             access = False
             if me.is_root():
                 access = True
-            elif not me.inactive() and (me.is_admin() or me.role == role):
+            elif me.inactive():
+                access = False
+            elif me.role == role:
                 access = True
+            elif me.is_admin and role in (User.EDITOR, None):
+                access = True
+
 
             if access:
                 return f(*args, **kw)
