@@ -192,7 +192,7 @@ All apis require admin permisssion, please take admin user session.
 GET /admin/meta/db_status.json
 ---------------------------------
 
-DB Status Check
+DB status check.
 
 .. code-block:: json
 
@@ -244,7 +244,7 @@ Get Application config.
 GET /admin/meta/meta.json
 ------------------------------
 
-Get Site meta.
+Get site meta.
 
 .. code-block:: json
 
