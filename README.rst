@@ -181,11 +181,11 @@ Monitor Api
 
 All apis require admin permisssion, please take admin user session.
 
-
-GET /admin/meta/db_status.json
+DB status check.
 ---------------------------------
 
-DB status check.
+	GET /admin/meta/db_status.json
+
 
 .. code-block:: json
 
@@ -194,10 +194,13 @@ DB status check.
 	  "status": "ok"
 	}
 
-GET /admin/meta/config.json
---------------------------
 
 Get Application config.
+--------------------------
+
+
+	GET /admin/meta/config.json
+
 
 .. code-block:: json
 
@@ -234,10 +237,12 @@ Get Application config.
 
 
 
-GET /admin/meta/meta.json
-------------------------------
+Get site meta
+-------------------
 
-Get site meta.
+	GET /admin/meta/meta.json
+
+
 
 .. code-block:: json
 
@@ -250,10 +255,11 @@ Get site meta.
 	  "sitename": "White"
 	}
 
-Get /admin/user.json
------------------------
 
-Get current user info.
+Get current user info
+------------------------
+
+	GET /admin/user.json
 
 .. code-block:: json
 	
