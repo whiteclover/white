@@ -18,7 +18,7 @@ from flask import g, request, flash, current_app
 from flask import render_template, redirect, url_for, jsonify
 from flask import session
 
-from white.controller import admin as bp, ADMIN, EDITOR
+from white.controller import admin as bp, ADMIN, EDITOR, ROOT
 from white.security import security
 
 from white.orm import Backend
@@ -26,6 +26,7 @@ from white.model import User
 from white.domain.user import UserService
 from white.flash import flash
 from white.lang import text
+from white.helper import site as config
 
 user_service = UserService()
 
@@ -63,13 +64,19 @@ def user_json():
 
 @bp.route('/user')
 @bp.route('/user/<int:page>')
+@security()
 def user_page(page=1):
-    page = user_service.page(page, 5)
+    me = g.user 
+    if me.is_root():
+        page = user_service.page(page, config.posts_per_page())
+    else:
+        page = user_service.get_user_page(me)
+
     return render_template('admin/user/index.html', users=page)
 
 
 @bp.route('/user/add', methods=['GET', 'POST'])
-@security(ADMIN)
+@security(ROOT)
 def user_add():
     if request.method == 'GET':
         return render_template('admin/user/add.html', statuses=User.STATUSES, roles=User.ROLES)
@@ -93,6 +100,7 @@ def user_add():
 
 
 @bp.route('/user/<int:uid>/edit', methods=['GET', 'POST'])
+@security()
 def user_edit(uid):
     if (not (g.user.is_root() or g.user.is_admin())) and g.user.uid != uid:
         return render_template('admin/403.html', message='You can only edit your self')
@@ -117,3 +125,11 @@ def user_edit(uid):
     else:
         flash(result['errors'], 'error')
         return redirect(url_for('admin.user_edit', uid=uid))
+
+
+@bp.route('/user/<int:user_id>/delete')
+@security(ROOT)
+def user_delete(user_id):
+    user_service.delete(user_id)
+    flash(text('user.deleted'), 'success')
+    return redirect(url_for('admin.user_page'))

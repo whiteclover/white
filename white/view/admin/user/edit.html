@@ -85,7 +85,9 @@
 
 		<aside class="buttons">
 			<button class='btn' type='submit'> {{__('global.update')}}</button>
-			<a href='/user/user/{{user.uid}}/delete' class='btn delete red'>{{__('global.delete')}}</a>
+			{% if g.user.is_root() and user.uid != 1 %}
+			<a href='{{ url_for('admin.user_delete', user_id=user.uid) }}' class='btn delete red'>{{__('global.delete')}}</a>
+			{% endif %}
 		</aside>
 	</form>
 

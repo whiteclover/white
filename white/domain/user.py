@@ -55,6 +55,10 @@ class UserService(object):
         page = Paginator(users, total, page, perpage, '/admin/user')
         return page
 
+
+    def get_user_page(self, user):
+        return Paginator([user], 1, 1, 5, '/admin/user')
+
     def user_count(self):
         return self.repo.count()
 
@@ -126,7 +130,7 @@ class UserService(object):
 
         if me.is_root() or me.uid == uid:
             if me.is_root() and not user.is_root():
-                if role in (User.ADMIN, User.USER. User.EDITOR):
+                if role in (User.ADMIN, User.USER, User.EDITOR):
                     user.role = role
                 if user.status != status and status in User.STATUSES:
                     user.status = status
@@ -139,3 +143,14 @@ class UserService(object):
 
         self.repo.save(user)
         return {'status': 'ok', 'msg': 'updated', 'user': user}
+
+
+    def delete(self, user_id):
+        me = g.user
+        user = self.repo.find(user_id)
+        if not user:
+            return
+        if user.is_root():
+            return 
+        if me.is_root():
+            return self.repo.delete(user)

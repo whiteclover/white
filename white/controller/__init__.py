@@ -20,7 +20,7 @@ admin = Blueprint('admin', 'admin')
 site = Blueprint('site', 'site')
 
 
-ADMIN, EDITOR = 'administrator', 'editor'
+ADMIN, EDITOR, ROOT = 'administrator', 'editor', 'root'
 
 
 from . import (
