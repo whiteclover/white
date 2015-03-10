@@ -95,7 +95,6 @@ Write python setting in a file, the setting class name must be ``Setting``
 
 	from white.setting import Config
 
-
 	class Setting(Config):
 
 	    HOST = 'localhost' # server host
@@ -109,7 +108,6 @@ Write python setting in a file, the setting class name must be ``Setting``
 	    SESSION_TYPE = 'filesystem'
 	    SESSION_FILE_DIR = '/var/www/$yoursite.com/cookies'
 
-
 	    ###### 
 	    # Wanna use redis session, please comment filesystem session settings
 	    SESSION_TYPE = 'redis'
@@ -117,11 +115,8 @@ Write python setting in a file, the setting class name must be ``Setting``
 	    # SESSION_REDIS = redis.Redis()
 	    # PERMANENT_SESSION_LIFETIME = datetime.timedelta(60)
 
-
-
 	    SESSION_FILE_THRESHOLD = 100
 	    SESSION_FILE_MODE = 0600
-
 
 	    ## DB Config
 	    DB_CONFIG  = {
@@ -149,8 +144,6 @@ If your wanna set session adapter pleas see more information in `flask-session <
 Run in console
 ================
 
-
-
 The terminal help options
 --------------------------
 
@@ -171,7 +164,7 @@ The terminal help options
 
 
 
-try run
+Try run
 --------------
 
 
