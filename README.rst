@@ -38,7 +38,7 @@ Firstly download or fetch it form github then run the command in shell:
 
 .. code-block:: bash
 
-    cd db # the path to the project
+    cd white # the path to the project
     python setup.py install
 
 Development
@@ -48,7 +48,7 @@ Fork or download it, then run:
 
 .. code-block:: bash 
 
-    cd db # the path to the project
+    cd white # the path to the project
     python setup.py develop
 
 Compatibility
