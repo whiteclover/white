@@ -19,6 +19,9 @@ The White project keeps the most of achor-cms features, but pythonic and some ne
 .. image:: https://github.com/thomashuang/white/blob/master/snap/home.png
 
 
+.. contents::
+    :depth: 2
+
 Install
 ==============
 
