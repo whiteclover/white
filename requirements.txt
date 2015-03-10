@@ -2,3 +2,4 @@ FlasK
 Flask-Session
 dbpy
 markdown
+Pillow

@@ -38,7 +38,7 @@ setup(
         # Non-.py files to distribute as part of each package
         'white': _package_data()
     },
-    install_requires = ['setuptools', 'flask', 'markdown', 'flask_session', 'dbpy'],
+    install_requires = ['setuptools', 'flask', 'markdown', 'flask_session', 'dbpy', 'pillow'],
     test_suite='unittests',
     classifiers=(
         "Development Status :: Production/Alpha",
