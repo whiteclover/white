@@ -138,7 +138,7 @@ Write python setting in a file, the setting class name must be ``Setting``
 	    THEME = 'default' # the froent theme name
 
 
-If your wanna set session adapter pleas see more information in `flask-session <http://pythonhosted.org/Flask-Session/>`_ doc.
+If your wanna set session adapter please see more information in `flask-session <http://pythonhosted.org/Flask-Session/>`_ doc.
 
 
 Run in console
@@ -181,7 +181,7 @@ Monitor Api
 
 All apis require admin permisssion, please take admin user session.
 
-DB status check.
+DB status check
 ---------------------------------
 
 	GET /admin/meta/db_status.json
@@ -195,7 +195,7 @@ DB status check.
 	}
 
 
-Get Application config.
+Get Application config
 --------------------------
 
 
