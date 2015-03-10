@@ -136,9 +136,9 @@ def post_edit(post_id):
     return redirect(url_for('admin.post_edit', post_id=post_id))
 
 
-@bp.route('/poist/<int:post_id>/delete')
+@bp.route('/post/<int:post_id>/delete')
 @security(EDITOR)
 def post_delete(post_id):
     post_service.delete(post_id)
-    flash(text('posts.deleted'), 'success')
+    flash(text('post.deleted'), 'success')
     return redirect(url_for('admin.post_page'))
