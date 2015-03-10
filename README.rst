@@ -86,7 +86,7 @@ Setup Config file
 =====================
 
 
-Write python setting in a file, the setting class name must be 'Setting'
+Write python setting in a file, the setting class name must be ``Setting``
 
 .. code-block:: python
 
@@ -94,6 +94,9 @@ Write python setting in a file, the setting class name must be 'Setting'
 
 
 	class Setting(Config):
+
+	    HOST = 'localhost' # server host
+	    PORT = 5000 # server port
 
 	    DEBUG = True
 	    
@@ -132,12 +135,12 @@ Write python setting in a file, the setting class name must be 'Setting'
 	    # the custom fields asset path
 	    CONTENT_PATH = '/var/www/$yoursite.com/content'
 
-	    LANGUAGE = 'zh_CN' # in ('zh_CN', 'zh_TW', 'en_GB')
+	    LANGUAGE = 'en_GB' # in ('zh_CN', 'zh_TW', 'en_GB')
 
 	    THEME = 'default' # the froent theme name
 
 
-If your wanna set session adapter pleas see more information in ``flask-session`` doc.
+If your wanna set session adapter pleas see more information in `flask-session <http://pythonhosted.org/Flask-Session/>`_ doc.
 
 
 Run in console
@@ -176,6 +179,80 @@ try run
 	 * Restarting with reloader
 
 
+
+Monitor Api
+================
+
+All apis require admin permisssion, please take admin user session.
+
+
+GET /admin/meta/db_status.json
+---------------------------------
+
+DB Status Check
+
+.. code-block:: json
+
+	{
+	  "message": "Fine", 
+	  "status": "ok"
+	}
+
+GET /admin/meta/config.json
+--------------------------
+
+Get Application config.
+
+.. code-block:: json
+
+	{
+	  "APPLICATION_ROOT": null, 
+	  "CONTENT_PATH": "$content_path", 
+	  "CSRF_SECRET": "hide: e8c78f7bfe8eccf18b1e731a27a7e2835739a9c8a354559ad5eced4c5f76d909", 
+	  "DB_CONFIG": {
+	    "db": "white", 
+	    "host": "localhost", 
+	    "max_idle": 10, 
+	    "passwd": "hide: d38681074467c0bc147b17a9a12b9efa8cc10bcf545f5b0bccccf5a93c4a2b79", 
+	    "user": "white"
+	  }, 
+	  "DB_MAXCONN": 10, 
+	  "DB_MINCONN": 5, 
+	  "DEBUG": true, 
+	  "HOST": "localhost", 
+	  "JSONIFY_PRETTYPRINT_REGULAR": true, 
+	  "JSON_AS_ASCII": true, 
+	  "JSON_SORT_KEYS": true, 
+	  "LANGUAGE": "en_GB", 
+	  "LOGGER_NAME": "white", 
+	  "MAX_CONTENT_LENGTH": null, 
+	  "PERMANENT_SESSION_LIFETIME": "31 days, 0:00:00", 
+	  "PORT": 5000, 
+	  "PREFERRED_URL_SCHEME": "http", 
+	  "PRESERVE_CONTEXT_ON_EXCEPTION": null, 
+	  "PROPAGATE_EXCEPTIONS": null, 
+	  "SECRET_KEY": "hide: dc5c40edf6c37edf0a7c615127d435b5aa8d0fcaccef4fde20f190aff81148fd", 
+	  "SEND_FILE_MAX_AGE_DEFAULT": 43200, 
+	  ...
+	}
+
+
+
+GET /admin/meta/meta.json
+------------------------------
+
+Get Site meta.
+
+.. code-block:: json
+
+	{
+	  "auto_published_comments": true, 
+	  "comment_moderation_keys": [], 
+	  "description": "White is a Blog system", 
+	  "posts_per_page": 10, 
+	  "site_page": 0, 
+	  "sitename": "White"
+	}
 
 LICENSE
 =======
