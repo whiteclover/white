@@ -13,17 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import time
-import datetime
-import logging
-import hashlib
+import codecs
+
+
 from flask import Flask
 from white.patch import patch_flask
-
-import codecs
-import os
-import os.path
 
 
 class WhiteServer(object):
@@ -67,13 +61,11 @@ class WhiteServer(object):
             self.app.config['DEBUG'] = True
             self.app.debug = True
 
-
         if self.options.host is not None:
             self.app.config['HOST'] = self.options.host
 
         if self.options.port is not None:
             self.app.config['port'] = self.options.port
-
 
         from white.ext import session
         session.app = self.app
