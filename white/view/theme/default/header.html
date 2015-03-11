@@ -4,13 +4,13 @@
 		<meta charset="utf-8">
 		<title>{{page_title}} - {{site.sitename()}}</title>
 
-		<meta name="description" content="@site_description">
+		<meta name="description" content="{{site.description()}}">
 
 		<link rel="stylesheet" href="{{url_for('static', filename='theme/default/css/reset.css')}}">
 		<link rel="stylesheet" href="{{url_for('static', filename='theme/default/css/style.css')}}">
 		<link rel="stylesheet" href="{{url_for('static', filename='theme/default/css/small.css')}}" media="(max-width: 400px)">
 
-		<link rel="alternate" type="application/rss+xml" title="RSS" href="@rss_url">
+		<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss">
 		<link rel="shortcut icon" href="{{url_for('static', filename='theme/default//img/favicon.png')}}">
 
 		<!--[if lt IE 9]>
