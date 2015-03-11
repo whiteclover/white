@@ -22,7 +22,7 @@ from white.model import Page
 from white.lib.validator import Validator
 from white.helper import site
 
-from white.controller import admin as bp, ADMIN, EDITOR
+from white.controller import admin_bp as bp, ADMIN, EDITOR
 from white.security import security
 
 

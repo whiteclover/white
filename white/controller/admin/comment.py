@@ -23,7 +23,7 @@ from white.lang import text
 from white.flash import flash
 
 
-from white.controller import admin as bp, ADMIN, EDITOR
+from white.controller import admin_bp as bp, ADMIN, EDITOR
 from white.security import security
 
 from white.domain.comment import CommentService

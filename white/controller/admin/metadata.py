@@ -30,7 +30,7 @@ from white.helper import site
 from white.util import hide_pass_for_config
 from white.ext import db
 
-from white.controller import admin as bp, ADMIN, EDITOR
+from white.controller import admin_bp as bp, ADMIN, EDITOR
 from white.security import security
 
 

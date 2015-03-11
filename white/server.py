@@ -123,9 +123,9 @@ class WhiteServer(object):
         orm.setup()
 
     def bootstrap_routes(self):
-        from white.controller import admin, site
-        self.app.register_blueprint(admin, url_prefix='/admin')
-        self.app.register_blueprint(site, url_prefix='')
+        from white.controller import admin_bp, site_bp
+        self.app.register_blueprint(admin_bp, url_prefix='/admin')
+        self.app.register_blueprint(site_bp, url_prefix='')
 
     def serve_forever(self):
         from gevent.wsgi import WSGIServer

@@ -14,16 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from flask import Blueprint
-
-admin_bp = Blueprint('admin', 'admin')
-site_bp = Blueprint('site', 'site')
-
-
-ADMIN, EDITOR, ROOT = 'administrator', 'editor', 'root'
-
-
 from . import (
-    admin,
-    front,
+    user,
+    page,
+    category,
+    comment,
+    extend,
+    field,
+    menu,
+    post,
+    metadata
 )

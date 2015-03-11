@@ -26,14 +26,14 @@ from white.domain.comment import CommentService
 from white.orm import Backend
 from white.helper import site as config
 
-from white.controller.post import post_page
+from white.controller.admin.post import post_page
 from white.lang import text
 from white.flash import flash
 from white.lib.validator import Validator
 from white.lib.memoize import memoize
 from white.ext import markdown
 from urlparse import urljoin
-from white.controller import site
+from white.controller import site_bp as site
 
 
 post_service = PostService()

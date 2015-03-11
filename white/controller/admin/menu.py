@@ -17,7 +17,7 @@
 from flask import render_template
 from flask import jsonify, request
 
-from white.controller import admin as bp, ADMIN, EDITOR
+from white.controller import admin_bp as bp, ADMIN, EDITOR
 from white.security import security
 
 from white.domain.menu import MenuService

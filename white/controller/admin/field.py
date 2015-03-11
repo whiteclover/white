@@ -20,7 +20,7 @@ from flask import g, request, current_app
 from flask.json import dumps
 from flask import session
 
-from white.controller import admin as bp, ADMIN, EDITOR
+from white.controller import admin_bp as bp, ADMIN, EDITOR
 from white.security import security
 
 from white.orm import Backend

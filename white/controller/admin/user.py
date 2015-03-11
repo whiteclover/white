@@ -18,7 +18,7 @@ from flask import g, request, flash, current_app
 from flask import render_template, redirect, url_for, jsonify
 from flask import session
 
-from white.controller import admin as bp, ADMIN, EDITOR, ROOT
+from white.controller import admin_bp as bp, ADMIN, EDITOR, ROOT
 from white.security import security
 
 from white.orm import Backend
