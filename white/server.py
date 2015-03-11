@@ -98,7 +98,7 @@ class WhiteServer(object):
 
         @self.app.errorhandler(403)
         def forbidden(e):
-            return theme_redner('403.html'), 403
+            return theme_render('403.html'), 403
 
         @self.app.errorhandler(404)
         def not_found(e):
