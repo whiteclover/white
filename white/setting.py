@@ -29,16 +29,15 @@ class Config:
     # SECRET_KEY = '7oGwHH8NQDKn9hL12Gak9G/MEjZZYk4PsAxqKU4cJoY='
     # SESSION_TYPE = 'filesystem'
     # SESSION_FILE_DIR = '/var/www/$yoursite.com/cookies'
-
+    # SESSION_FILE_THRESHOLD = 100
+    # SESSION_FILE_MODE = 0600
+    
     ######
     # Wanna use redis session, please comment filesystem session settings
     # SESSION_TYPE = 'redis'
     # import redis
     # SESSION_REDIS = redis.Redis()
     # PERMANENT_SESSION_LIFETIME = datetime.timedelta(60)
-
-    SESSION_FILE_THRESHOLD = 100
-    SESSION_FILE_MODE = 0600
 
     # DB Config
     DB_CONFIG = {
