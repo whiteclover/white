@@ -128,11 +128,11 @@ class WhiteServer(object):
         self.app.register_blueprint(site_bp, url_prefix='')
 
     def serve_forever(self):
-        from gevent.wsgi import WSGIServer
         debug = self.app.config.get('DEBUG', True)
         host = self.app.config.get('HOST', 'localhost')
         port = self.app.config.get('PORT', 5000)
         if not debug:
+            from gevent.wsgi import WSGIServer
             http_server = WSGIServer((host, port), self.app, log=debug)
             http_server.serve_forever()
         else:
