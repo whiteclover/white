@@ -169,7 +169,7 @@ The terminal help options
 Try run
 --------------
 
-If you wanna use production mode and ``whited`` run the blog service, please install gevent firstly. 
+If you wanna use production mode and ``whited`` running the blog service, please install ``gevent`` firstly. 
 
 .. code-block:: bash
 
@@ -178,10 +178,10 @@ If you wanna use production mode and ``whited`` run the blog service, please ins
 	 * Restarting with reloader
 
 
-Wrap other Wsgi Server
-------------------------
+Run White in Other WSGI Servers
+----------------------------------
 
-When you wanna use other wsgi server, just booststrap app, then take the app in your server api:
+When you wanna use other wsgi servers, just booststrap app, then take the app in your server api:
 
 .. code-block:: python
 
