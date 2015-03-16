@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__version__ = '0.1.0-alpha1-2'
+__version__ = '0.1.0-alpha1-3'

@@ -144,6 +144,8 @@ If your wanna set session adapter please see more information in `flask-session 
 Run in console
 ================
 
+
+
 The terminal help options
 --------------------------
 
@@ -167,12 +169,28 @@ The terminal help options
 Try run
 --------------
 
+If you wanna use production mode and ``whited`` run the blog service, please install gevent firstly. 
 
 .. code-block:: bash
 
 	> python whited -c=conf/config -d
 	 * Running on http://127.0.0.1:5000/
 	 * Restarting with reloader
+
+
+Wrap other Wsgi Server
+------------------------
+
+When you wanna use other wsgi server, just booststrap app, then take the app in your server api:
+
+.. code-block:: python
+
+	from white.server import WhiteServer
+
+	server = WhiteServer()
+	app = server.bootstrap()
+
+	wsgi_server_run(app) # your wsgi warpper
 
 
 
