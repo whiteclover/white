@@ -19,7 +19,6 @@ b, strong {
 a {
 	color: #486899;
 	text-decoration: none;
-
 	-webkit-transition: color .25s, background .25s, opacity .25s;
 	-moz-transition: color .25s, background .25s, opacity .25s;
 	-ms-transition: color .25s, background .25s, opacity .25s;
@@ -46,16 +45,13 @@ fieldset, a, img {
 .top {
 	position: relative;
 	z-index: 21;
-
 	padding: 15px 0;
-
 	background: #444f5f;
 }
 
 	.top a {
 		display: inline-block;
 		padding: 0 18px;
-
 		font-size: 13px;
 		font-weight: bold;
 		line-height: 34px;
@@ -103,10 +99,8 @@ fieldset, a, img {
 		float: right;
 		padding: 0 16px;
 		margin-left: 20px;
-
 		background: #38414f;
 		color: #6a788d;
-
 		border-radius: 5px;
 	}
 
@@ -142,16 +136,13 @@ hgroup {
 	background: #e2e5eb;
 	background: rgba(129,145,171,.2);
 	color: #848f9f;
-
 	font-size: 10px;
 	line-height: 14px;
 	font-style: normal;
 	font-weight: bold;
 	text-transform: uppercase;
-
 	padding: 3px 6px;
 	border-radius: 3px;
-
 	position: absolute;
 	right: 30px;
 	top: 30px;
@@ -180,14 +171,11 @@ hgroup {
 .btn {
 	display: inline-block;
 	padding: 0 22px;
-
 	color: #fff;
 	background: #6aad28;
-
 	font-size: 13px;
 	line-height: 38px;
 	font-weight: bold;
-
 	border: none;
 	border-radius: 5px;
 
@@ -225,11 +213,9 @@ hgroup {
 	#exit-focus.btn {
 		background: #d4d9e0;
 		color: #7c8592;
-
 		position: fixed;
 		right: 20px;
 		top: 20px;
-
 		padding: 0 17px;
 		line-height: 32px;
 	}
@@ -251,7 +237,6 @@ hgroup {
 
 	.bottom em {
 		float: right;
-
 		font-size: 13px;
 		font-style: normal;
 		color: #9ba4b0;
@@ -263,17 +248,14 @@ hgroup {
 .list {
 	list-style: none;
 	width: 100%;
-	
 	border-top: 1px solid #dadfe5;
 }
 	.list li a {
 		display: block;
 		padding: 25px 30px 15px;
 		color: #7d8693;
-
 		position: relative;
 		overflow: hidden;
-		
 		border-bottom: 1px solid #dadfe5;
 	}
 	    .list li a:hover {
@@ -284,10 +266,8 @@ hgroup {
 		display: block;
 		width: 85%;
 		height: 25px;
-
 		font-size: 19px;
 		color: #606b7b;
-
 		position: relative;
 		overflow: hidden;
 		white-space: nowrap;
@@ -296,7 +276,6 @@ hgroup {
 
 		.list li strong .status {
 			float: right;
-
 			position: relative;
 			top: 10px;
 			right: 30px;
@@ -306,7 +285,6 @@ hgroup {
 	.list li strong + span {
 		display: block;
 		padding-bottom: 8px;
-
 		font-size: 13px;
 		color: #a3acb9;
 	}
@@ -344,7 +322,6 @@ hgroup {
 		border-radius: 5px;
 		border: 2px solid #fff;
 		cursor: move;
-
 		margin: 10px 0;
 		padding: 7px 14px;
 	}
@@ -369,7 +346,7 @@ hgroup {
 		margin: 0 auto 15px;
 		background: url('../img/icons.png') no-repeat;
 	}
-	
+
 .sidebar + .main {
     float: right;
     width: 760px;
@@ -379,7 +356,7 @@ hgroup {
 .sidebar {
     float: left;
     width: 150px;
-    
+
     border-top: 1px solid #dadfe5;
 }
 	.sidebar a {
@@ -388,7 +365,7 @@ hgroup {
 
 		font-size: 13px;
 		color: #616a71;
-		
+
 		-webkit-transition: none;
 
 		border-bottom: 1px solid #dadfe5;
@@ -399,17 +376,17 @@ hgroup {
 		.sidebar a.active {
 			background: #fff;
 		}
-		
+
 .statuses .icon {
     display: inline-block;
     width: 16px;
     height: 16px;
     margin-right: 2px;
-    
+
     position: relative;
     top: 3px;
     left: -7px;
-    
+
     background: url('../img/statuses.png');
 }
     .statuses a:hover .icon { background-position: -16px 0; }
@@ -495,6 +472,10 @@ body.login {
 
 	.empty a {
 		margin-top: 80px;
+	}
+
+	.login .bottom em {
+		float: left;
 	}
 
 /*
