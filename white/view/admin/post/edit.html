@@ -1,16 +1,10 @@
 {% include "admin/layout/header.html" %}
-
-
 <form method="post" action="/admin/post/{{article.pid}}/edit" enctype="multipart/form-data" novalidate>
-
     <fieldset class="header">
         
         <div class="wrap">
-
             {{ flash }}
-
             <input type='text' name='title' placeholder='{{__('post.title')}}' value='{{article.title}}' autocomplete='off' autofocus='true'>
-
             <aside class="buttons">
                 <button  type='submit' class='btn'> {{__('global.save')}}</button>
                 <a href='/admin/post/{{article.pid}}/delete' class='btn delete red'>{{__('global.delete')}}</a>
@@ -18,14 +12,12 @@
             
         </div>
     </fieldset>
-
     <fieldset class="main">
         <div class="wrap">
             <textarea name='html' placeholder='{{__('post.content_explain')}}' rows=10 cols=50 id='html'>{{article.html}}</textarea>
             {%include "admin/layout/edit.html" %}
         </div>
     </fieldset>
-
     <fieldset class="meta split">
         <div class="wrap">
             <p>
@@ -41,26 +33,26 @@
             <p>
                 <label>{{__('post.status')}}:</label>
                 <select name='status' id='status'>
-                {% for name, value in statuses.items() %}
-                    {% if name == article.status %}
-                    <option value="{{name}}" selected='selected'>{{value}}</option>
-                    {% else %}
-                    <option value="{{name}}">{{value}}</option>
-                    {% endif %}
-                {% endfor %}
+                    {% for name, value in statuses.items() %}
+                        {% if name == article.status %}
+                            <option value="{{name}}" selected='selected'>{{value}}</option>
+                        {% else %}
+                            <option value="{{name}}">{{value}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
                 <em>{{__('post.status_explain')}}</em>
             </p>
             <p>
                 <label>{{__('post.category')}}:</label>
                 <select name='category'>
-                {% for category in categories %}
-                    {% if category.cid == article.category %}
-                    <option value="{{category.cid}}" selected='selected'>{{category.title}}</option>
-                    {% else %}
-                     <option value="{{category.cid}}">{{category.title}}</option>
-                    {% endif %}
-                {% endfor %}
+                    {% for category in categories %}
+                        {% if category.cid == article.category %}
+                            <option value="{{category.cid}}" selected='selected'>{{category.title}}</option>
+                        {% else %}
+                            <option value="{{category.cid}}">{{category.title}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
                 <em>{{__('post.category_explain')}}</em>
             </p>
@@ -70,32 +62,28 @@
                 <em>{{__('post.allow_comments_explain')}}</em>
             </p>
             <label for="custom_css">{{__('post.custom_css')}}:</label>
-                <textarea id='custom_css' name='custom_css' cols=50 rows=10></textarea>
-                <em>{{__('post.custom_css_explain')}}</em>
-            </p>
-            <p>
-                <label for="custom_js">{{__('post.custom_js')}}:</label>
-                <textarea  id='custom_js' name='custom_js' cols=50 rows=10></textarea>
-                <em>{{__('post.custom_js_explain')}}</em>
-            </p>
-
-            {% for field in fields %}
+            <textarea id='custom_css' name='custom_css' cols=50 rows=10></textarea>
+            <em>{{__('post.custom_css_explain')}}</em>
+        </p>
+        <p>
+            <label for="custom_js">{{__('post.custom_js')}}:</label>
+            <textarea  id='custom_js' name='custom_js' cols=50 rows=10></textarea>
+            <em>{{__('post.custom_js_explain')}}</em>
+        </p>
+        {% for field in fields %}
             <p>
                 <label for="extend_{{field.key}}">{{field.label}}:</label>
                 {{field}}
             </p>
-            {% endfor %}
-
-        </div>
-    </fieldset>
+        {% endfor %}
+    </div>
+</fieldset>
 </form>
-
 <script src="{{ url_for('static', filename="js/dragdrop.js") }}"></script>
 <script src="{{ url_for('static', filename="js/upload-fields.js") }}"></script>
 <script src="{{ url_for('static', filename="js/text-resize.js") }}"></script>
 <script src="{{ url_for('static', filename="js/editor.js") }}"></script>
-
 <script>
-    $('textarea[name=html]').editor();
+$('textarea[name=html]').editor();
 </script>
 {% include "admin/layout/footer.html" %}

@@ -2,10 +2,8 @@
 {% block body %}
 	<section class='content wrap'>
 		<h1>Page not found</h1>
-
 		<p>Unfortunately, the page <code>{{request.path}}</code> could not be found. Your best is either to try the
-		<a href='{{url_for('site.page')}}'> homepage </a>, try <a href='/search?q={{request.path.split('/')[-1]}}'> searching </a>, or go and cry in corner (although I don’t recommend the latter). </p>
+			<a href='{{url_for('site.page')}}'> homepage </a>, try <a href='/search?q={{request.path.split('/')[-1]}}'> searching </a>, or go and cry in corner (although I don’t recommend the latter). </p>
 		</p>
-
 	</section>
 {% endblock %}

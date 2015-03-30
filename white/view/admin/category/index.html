@@ -1,28 +1,22 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	<h1>{{__('category.category')}}</h1>
-
-	<nav>
-		<a href='/admin/category/add' class='btn'>{{__('category.create_category')}}</a>
-	</nav>
+<h1>{{__('category.category')}}</h1>
+<nav>
+	<a href='/admin/category/add' class='btn'>{{__('category.create_category')}}</a>
+</nav>
 </hgroup>
-
 <section class="wrap">
-    {{ flash }}
+	{{ flash }}
 	<ul class="list">
 		{% for category in categories %}
-		<li>
-			<a href="/admin/category/{{category.cid}}/edit">
-				<strong>{{category.title}}</strong>
-
-				<span>{{category.slug}}</span>
-			</a>
-		</li>
+			<li>
+				<a href="/admin/category/{{category.cid}}/edit">
+					<strong>{{category.title}}</strong>
+					<span>{{category.slug}}</span>
+				</a>
+			</li>
 		{% endfor %}
 	</ul>
-
-	<aside class="paging"> {{categories}}</aside>
+<aside class="paging"> {{categories}}</aside>
 </section>
-
 {% include "admin/layout/footer.html" %}

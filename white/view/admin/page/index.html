@@ -1,54 +1,44 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-    <h1>{{__('page.page')}}</h1>
-
-    {% if pages %}
+<h1>{{__('page.page')}}</h1>
+{% if pages %}
     <nav>
         <a href='/admin/page/add' class='btn'> {{__('page.create_page')}}</a>
     </nav>
-    {% endif %}
+{% endif %}
 </hgroup>
-
 <section class="wrap">
-
-
     <nav class="sidebar statuses">
         <a href='/admin/page' class='{{ 'active' if status == 'all' else ''}}'><span class="icon"></span>{{__('global.all')}}</a>
         {% for t in ('published', 'draft', 'archived') %}
-        <a href='/admin/page/status/{{t}}'  class='{{ 'active' if status == t else ''}}'><span class="icon"></span>{{__('global.' + t)}}</a>
-   
-        {% endfor %} 
-    </nav>
-
-    {% if pages %}
-    <ul class="main list">
-        {% for page in pages %}
-        <li>
-            <a href="/admin/page/{{page.pid}}/edit">
-                <strong>{{page.name}}</strong>
-
-                <span>
-                    {{page.slug}}
-                    <em class="status {{page.status}}" title="{{__('global.' + page.status)}}">
-                                {{__('global.' + page.status)}}
-                    </em>
-                </span>
-            </a>
-        </li>
+            <a href='/admin/page/status/{{t}}'  class='{{ 'active' if status == t else ''}}'><span class="icon"></span>{{__('global.' + t)}}</a>
+            
         {% endfor %}
-
-    </ul>
+    </nav>
+    {% if pages %}
+        <ul class="main list">
+            {% for page in pages %}
+                <li>
+                    <a href="/admin/page/{{page.pid}}/edit">
+                        <strong>{{page.name}}</strong>
+                        <span>
+                            {{page.slug}}
+                            <em class="status {{page.status}}" title="{{__('global.' + page.status)}}">
+                            {{__('global.' + page.status)}}
+                            </em>
+                        </span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     <aside class="paging">{{pages}}</aside>
     
-
-    {% else %}
+{% else %}
     <aside class="empty pages">
         <span class="icon"></span>
         {{__('page.nopages_desc')}}<br>
         <a href='/admin/page/add' class='btn'> {{__('page.create_page')}}</a>
     </aside>
-    {% endif %}
+{% endif %}
 </section>
-
 {%include "admin/layout/footer.html" %}

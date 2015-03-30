@@ -1,18 +1,11 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	<h1>{{__('category.create_category')}}</h1>
+<h1>{{__('category.create_category')}}</h1>
 </hgroup>
-
 <section class="wrap">
-
 	{{ flash }}
-
-
 	<form method="post" action="/admin/category/add" novalidate>
-
-	{#<input name="token" type="hidden" value="{{token}>">#}
-
+		{#<input name="token" type="hidden" value="{{token}>">#}
 		<fieldset class="split">
 			<p>
 				<label>{{__('category.title')}}:</label>
@@ -27,19 +20,14 @@
 			<p>
 				<label>{{__('category.description')}}:</label>
 				<textarea name='description' placeholder='{{__('post.content_explain')}}' rows=10 cols=50 id='html'
-				 value="{{ request.form.description }}"></textarea>
+				value="{{ request.form.description }}"></textarea>
 				<em>{{__('category.description_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<aside class="buttons">
 			<button type='submit' class='btn'>{{__('global.save')}}</button>
 		</aside>
-
 	</form>
 </section>
-
 <script src="{{ url_for('static', filename="js/slug.js") }}"></script>
-
-
 {% include "admin/layout/footer.html" %}

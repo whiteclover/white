@@ -1,20 +1,14 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	<h1>{{__('users.editing_user', user.username)}}</h1>
+<h1>{{__('users.editing_user', user.username)}}</h1>
 </hgroup>
-
 <section class="wrap">
-
 	<form method="post" action="/admin/user/{{user.uid}}/edit" novalidate autocomplete="off">
-
 		{{flash}}
-
 		<fieldset class="half split">
 			<p>
 				<label>{{__('user.real_name')}}:</label>
 				<input type='text' name='real_name' value='{{user.real_name}}'>
-
 				<em> {{__('user.real_name_explain')}}</em>
 			</p>
 			<p>
@@ -25,35 +19,33 @@
 			<p>
 				<label>{{__('user.status')}}:</label>
 				<select name='status' id='status' value='{{user.status}}'>
-				{% for name, value in statuses.items() %}
-                    {% if name == user.status %}
-                    <option value="{{name}}" selected='selected'>{{value}}</option>
-                    {% else %}
-                    <option value="{{name}}">{{value}}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-
+					{% for name, value in statuses.items() %}
+						{% if name == user.status %}
+							<option value="{{name}}" selected='selected'>{{value}}</option>
+						{% else %}
+							<option value="{{name}}">{{value}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
 				<em>{{__('user.status_explain')}}</em>
-			</p> 
+			</p>
 			<p>
 				<label> {{__('user.role')}}:</label>
 				<select name='role' id='role' value='{{user.role}}'>
-				{% for name, value in roles.items() %}
-                    {% if name == user.role %}
-                    <option value="{{name}}" selected='selected'>{{value}}</option>
-                    {% else %}
-                    <option value="{{name}}">{{value}}</option>
-                    {% endif %}
-                {% endfor %}
-                {% if user.role == 'root' %}
-                	<option value="root" selected='selected'>root</option>
-                {% endif %}
-                </select>
+					{% for name, value in roles.items() %}
+						{% if name == user.role %}
+							<option value="{{name}}" selected='selected'>{{value}}</option>
+						{% else %}
+							<option value="{{name}}">{{value}}</option>
+						{% endif %}
+					{% endfor %}
+					{% if user.role == 'root' %}
+						<option value="root" selected='selected'>root</option>
+					{% endif %}
+				</select>
 				<em> {{__('user.role_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<fieldset class="half split">
 			<p>
 				<label>{{__('user.username')}}:</label>
@@ -65,32 +57,28 @@
 				<input type='password' name='password'>
 				<em> {{__('user.password_explain')}}</em>
 			</p>
-            <p>
-                <label>New Password:</label>
-                <input type='password' name='newpass1'>
-                <em>New Password</em>
-            </p>
-            <p>
-                <label>Confirm:</label>
-                <input type='password' name='newpass2'>
-                <em>Password Confirm</em>
-            </p>
-
+			<p>
+				<label>New Password:</label>
+				<input type='password' name='newpass1'>
+				<em>New Password</em>
+			</p>
+			<p>
+				<label>Confirm:</label>
+				<input type='password' name='newpass2'>
+				<em>Password Confirm</em>
+			</p>
 			<p>
 				<label>{{__('user.email')}}:</label>
 				<input type='email' name='email' value='{{user.email}}'>
 				<em> {{__('user.email_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<aside class="buttons">
 			<button class='btn' type='submit'> {{__('global.update')}}</button>
 			{% if g.user.is_root() and user.uid != 1 %}
-			<a href='{{ url_for('admin.user_delete', user_id=user.uid) }}' class='btn delete red'>{{__('global.delete')}}</a>
+				<a href='{{ url_for('admin.user_delete', user_id=user.uid) }}' class='btn delete red'>{{__('global.delete')}}</a>
 			{% endif %}
 		</aside>
 	</form>
-
 </section>
-
 {% include "admin/layout/footer.html" %}

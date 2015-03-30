@@ -1,64 +1,52 @@
 {% extends "theme/default/layout.html" %}
 {% if article.css or article.jss %}
-{% block head %}
+	{% block head %}
 		<!-- Custom CSS -->
 		<style>{{ article.css }}</style>
-
 		<!--  Custom Javascript -->
 		<script>{{ article.jss }}</script>
-{% endblock %}
+	{% endblock %}
 {% endif %}
-
 {% block body %}
-		<section class="content wrap" id="article-{{article.pid}}">
-			<h1>{{article.title}}</h1>
-			<article>
-				{{article.html|markdown|safe}}
-			</article>
-
-		</section>
-
-		{% if article.allow_comment %}
+	<section class="content wrap" id="article-{{article.pid}}">
+		<h1>{{article.title}}</h1>
+		<article>
+			{{article.html|markdown|safe}}
+		</article>
+	</section>
+	{% if article.allow_comment %}
 		<section class="comments">
-
 			<ul class="commentlist">
-					{% for i, comment in  enumerate(comments) %}
+				{% for i, comment in  enumerate(comments) %}
 					<li class="comment" id="comment-{{ comment.cid }}">
 						<div class="wrap">
 							<h2>{{comment.name }}</h2>
 							<time>{{ comment.created }}</time>
-
 							<div class="content">
 								{{comment.content}}
 							</div>
-
 							<span class="counter">{{ i + 1 }}</span>
 						</div>
 					</li>
-					{% endfor %}
+				{% endfor %}
 			</ul>
-
 			<form id="comment" class="commentform wrap" method="post" action="/post/comment/{{article.slug}}">
 				<p class="name">
 					<label for="name">Your name:</label>
 					<input name="name" id="name" type="text" placeholder="Your name" value="{{request.form.get('name', '')}}">
 				</p>
-
 				<p class="email">
 					<label for="email">Your email address:</label>
 					<input name="email" id="email" type="email" placeholder="Your email (won’t be published)" value="{{request.form.get('email', '')}}">
-
 				</p>
-
 				<p class="textarea">
 					<label for="text">Your comment:</label>
 					<textarea name="content" id="content" placeholder="Your comment" >{{request.form.get('content', '')}}</textarea>
 				</p>
-
 				<p class="submit">
 					<button class="btn" type="submit" >Post Comment</button>
 				</p>
 			</form>
 		</section>
-		{% endif %}
+	{% endif %}
 {% endblock %}

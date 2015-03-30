@@ -1,52 +1,45 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	<h1>{{__('metadata.metadata')}}</h1>
+<h1>{{__('metadata.metadata')}}</h1>
 </hgroup>
-
 <section class="wrap">
-    {{ flash }}
+	{{ flash }}
 	<form method="post" action="/admin/extend/metadata" novalidate>
 		<fieldset class="split">
 			<p>
 				<label>{{__('metadata.sitename')}}:</label>
-
 				<input id="sitename" name="sitename" value="{{request.form.get('sitename', sitename)}}">
 				<em>{{__('metadata.sitename_explain')}}</em>
 			</p>
 			<p>
 				<label>{{__('metadata.sitedescription')}}:</label>
-
 				<textarea  id='description' name='description'  rows=10 cols=20 >{{request.form.get('sitename',description)}}</textarea>
 				<em>{{__('metadata.sitedescription_explain')}}</em>
 			</p>
 			<p>
 				<label>{{__('metadata.homepage')}}:</label>
-
 				<select name='site_page' id='site_page' value='{{site_page}}'>
-				{% if 0 == posts_page %}
-                    <option value="0" selected='selected'>To Posts</option>
-                    {% else %}
-                    <option value="0">To Posts</option>
-                {% endif %}
-                {% for page_id, name in pages %}
-                    {% if page_id == site_page %}
-                    <option value="{{page_id}}" selected='selected'>{{name}}</option>
-                    {% else %}
-                    <option value="{{page_id}}">{{name}}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
+					{% if 0 == posts_page %}
+						<option value="0" selected='selected'>To Posts</option>
+					{% else %}
+						<option value="0">To Posts</option>
+					{% endif %}
+					{% for page_id, name in pages %}
+						{% if page_id == site_page %}
+							<option value="{{page_id}}" selected='selected'>{{name}}</option>
+						{% else %}
+							<option value="{{page_id}}">{{name}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
 				<em>{{__('metadata.homepage_explain')}}</em>
 			</p>
 			<p>
 				<label for="posts_per_page">{{__('metadata.posts_per_page')}}:</label>
-
 				<input type='range' min=1 max=15 id="posts_per_page" name="posts_per_page" value="{{request.form.get('posts_per_page', posts_per_page)}}">
 				<em>{{__('metadata.posts_per_page_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<fieldset class="split">
 			<legend>{{__('metadata.comment_settings')}}</legend>
 			<p>
@@ -55,20 +48,16 @@
 				<input id="auto_published_comments" name="auto_published_comments" type="checkbox" value="1" {{checked}}>
 				<em>{{__('metadata.auto_publish_comments_explain')}}</em>
 			</p>
-
 			<p>
 				<label>{{__('metadata.comment_moderation_keys')}}:</label>
-
 				<textarea name='comment_moderation_keys' placeholder='{{__('post.content_explain')}}' rows=10 cols=20 id='value'
 				> {{request.form.get('comment_moderation_keys', comment_moderation_keys)}} </textarea>
 				<em>{{__('metadata.comment_moderation_keys_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<aside class="buttons">
 			<button class="btn" type="submit">{{__('global.update')}}</button>
 		</aside>
 	</form>
 </section>
-
 {% include "admin/layout/footer.html" %}

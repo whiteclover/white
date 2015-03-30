@@ -1,16 +1,12 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	{% set title = __('category.edit_category', args = (category.title,)) %}
-	<h1>{{title|safe}}</h1>
+{% set title = __('category.edit_category', args = (category.title,)) %}
+<h1>{{title|safe}}</h1>
 </hgroup>
-
 <section class="wrap">
-
 	{{ flash }}
 	
 	<form method="post" action="/admin/category/{{category.cid}}/edit" novalidate>
-
 		<fieldset class="split">
 			<p>
 				<label>{{__('category.title')}}:</label>
@@ -28,14 +24,11 @@
 				<em>{{__('category.description_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<aside class="buttons">
 			<button type='submit' class='btn'>{{__('global.save')}}</button>
 			<a href='/admin/category/{{category.cid}}/delete' class='btn delete red'>{{ __('global.delete')}}</a>
 		</aside>
 	</form>
 </section>
-
 <script src="{{ url_for('static', filename="js/slug.js") }}"></script>
-
 {% include "admin/layout/footer.html" %}

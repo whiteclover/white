@@ -1,26 +1,22 @@
 {% include "admin/layout/header.html" %}
 <hgroup class="wrap">
-	<h1>{{__('extend.fields')}}</h1>
-
-	<nav>
-		<a class="btn" href="/admin/extend/field/add">{{__('extend.create_field')}}</a>
-	</nav>
+<h1>{{__('extend.fields')}}</h1>
+<nav>
+	<a class="btn" href="/admin/extend/field/add">{{__('extend.create_field')}}</a>
+</nav>
 </hgroup>
-
 <section class="wrap">
-
 	{% if fields %}
-	<ul class="list">
-		{% for field in fields %}
-		<li>
-			<a href="/admin/extend/field/{{field.eid}}/edit">
-				<strong>{{field.label}}</strong>
-				<span>{{field.type}} {{field.field}}</span>
-			</a>
-		</li>
-		{% endfor %}
-	</ul>
-
+		<ul class="list">
+			{% for field in fields %}
+				<li>
+					<a href="/admin/extend/field/{{field.eid}}/edit">
+						<strong>{{field.label}}</strong>
+						<span>{{field.type}} {{field.field}}</span>
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
 	<aside class="paging">{{extend}}</aside>
 	{% else %}
 	<p class="empty">

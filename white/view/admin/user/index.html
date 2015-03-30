@@ -1,28 +1,25 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	<h1>{{__('user.user')}}</h1>
-	{% if g.user.is_root() %}
+<h1>{{__('user.user')}}</h1>
+{% if g.user.is_root() %}
 	<nav>
 		<a href='/admin/user/add' class='btn'> {{__('user.create_user')}}</a>
 	</nav>
-	{% endif %}
+{% endif %}
 </hgroup>
-
 <section class="wrap">
 	{{flash}}
 	<ul class="list">
 		{% for user in users %}
-		<li>
-			<a href="/admin/user/{{user.uid}}/edit">
-				<strong>{{user.real_name}}</strong>
-				<span>{{__('user.username')}}: {{user.username}}</span>
-				<em class="highlight">{{__('user.' + user.role, 'Root')}}</em>
-			</a>
-		</li>
+			<li>
+				<a href="/admin/user/{{user.uid}}/edit">
+					<strong>{{user.real_name}}</strong>
+					<span>{{__('user.username')}}: {{user.username}}</span>
+					<em class="highlight">{{__('user.' + user.role, 'Root')}}</em>
+				</a>
+			</li>
 		{% endfor %}
 	</ul>
-
-	<aside class="paging">{{users}}</aside>
+<aside class="paging">{{users}}</aside>
 </section>
 {% include "admin/layout/footer.html" %}

@@ -1,10 +1,8 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-	{% set title =  __('extend.editing_custom_field', args=(field.label,)) %}
-	<h1>{{title|safe}}</h1>
+{% set title =  __('extend.editing_custom_field', args=(field.label,)) %}
+<h1>{{title|safe}}</h1>
 </hgroup>
-
 <section class="wrap">
 	{{ flash }}
 	<form method="post" action="/admin/extend/field/{{field.eid}}/edit" novalidate>
@@ -12,78 +10,61 @@
 			<p>
 				<label for="type">{{__('extend.type')}}:</label>
 				<select id="type" name="type">
-				{% for type in ('post', 'page') %}	
-					{% set selected =  'selected' if field.type == type else '' %}
-					<option {{selected}}>{{type}}</option>
-				{% endfor %}
+					{% for type in ('post', 'page') %}
+						{% set selected =  'selected' if field.type == type else '' %}
+						<option {{selected}}>{{type}}</option>
+					{% endfor %}
 				</select>
 				<em>{{__('extend.type_explain')}}</em>
 			</p>
-
 			<p>
 				<label for="field">{{__('extend.field')}}:</label>
 				<select id="field" name="field">
-
-				 {% for type in ('text', 'html', 'image', 'file') %}
-				 	{% set selected = 'selected'  if request.form.get('field', field.field) == type else  '' %}
-                    <option {{selected}}>{{type}}</option>
-                    {% endfor %}
+					{% for type in ('text', 'html', 'image', 'file') %}
+						{% set selected = 'selected'  if request.form.get('field', field.field) == type else  '' %}
+						<option {{selected}}>{{type}}</option>
+					{% endfor %}
 				</select>
 				<em>{{__('extend.field_explain')}}</em>
 			</p>
-
 			<p>
 				<label for="key">{{__('extend.key')}}:</label>
 				<input id="key" name="key" value="{{field.key}}">
 				<em>{{__('extend.key_explain')}}</em>
 			</p>
-
 			<p>
 				<label for="label">{{__('extend.label', 'Label')}}:</label>
 				<input id="label" name="label" value="{{field.label}}">
 				<em>{{__('extend.label_explain')}}</em>
 			</p>
-
 			<p class="hide attributes_type">
 				<label for="attributes_type">{{__('extend.attribute_type')}}:</label>
-
 				{% set value =  field.attributes.get('type', '') %}
 				<input id="attributes_type" name="attributes[type]" value="{{ request.form.get('attributes[type]', value) }}">
 				<em>{{__('extend.attribute_type_explain')}}</em>
 			</p>
-
 			<p class="hide attributes_width">
 				<label for="attributes_size_width">{{__('extend.attributes_size_width')}}:</label>
-
-
 				{% set value =  field.attributes['size'].get('width') if 'size' in field.attributes and field.attributes['size'].get('width') else '' %}
 				<input id="attributes_size_width" name="attributes[size][width]"
-					value="{{ request.form.get('attributes[size][width]', value) }}">
-
+				value="{{ request.form.get('attributes[size][width]', value) }}">
 				<em>{{__('extend.attributes_size_width_explain')}}</em>
 			</p>
-
 			<p class="hide attributes_height">
 				<label for="attributes_size_height">{{__('extend.attributes_size_height')}}:</label>
-
 				{% set value =  field.attributes['size'].get('height') if 'size' in field.attributes and field.attributes['size'].get('height') else '' %}
 				<input id="attributes_size_height" name="attributes[size][height]"
-					value="{{ request.form.get('attributes[size][height]', value) }}">
-
+				value="{{ request.form.get('attributes[size][height]', value) }}">
 				<em>{{__('extend.attributes_size_height_explain')}}</em>
 			</p>
 		</fieldset>
-
 		<aside class="buttons">
 			<button class="btn" type="submit">{{__('global.update')}}</button>
-
 			<a class="btn delete red" href="{{ url_for('admin.field_delete', extend_id=field.eid)}}">
 				{{__('global.delete')}}
 			</a>
 		</aside>
 	</form>
 </section>
-
 <script src="{{ url_for('static', filename='js/custom-fields.js') }}"></script>
-
 {% include "admin/layout/footer.html" %}

@@ -1,55 +1,44 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-    <h1>{{__('post.post')}}</h1>
-
-    {% if posts %}
+<h1>{{__('post.post')}}</h1>
+{% if posts %}
     <nav>
         <a href='/admin/post/add' class='btn'>{{ __('post.create_post')}}</a>
     </nav>
-    {% endif %}
+{% endif %}
 </hgroup>
-
 <section class="wrap">
     {{flash}}
     <nav class="sidebar">
         <a href='/admin/post' {{ "" if category else "class=active"}}>{{ __('global.all')}}</a>
-
         {% for cat in categories %}
-        <a href='/admin/post/category/{{cat.cid}}' {{"class=active" if category and category == cat.cid else ''}}>{{cat.title}}</a>
+            <a href='/admin/post/category/{{cat.cid}}' {{"class=active" if category and category == cat.cid else ''}}>{{cat.title}}</a>
         {% endfor %}
     </nav>
-
     {% if posts %}
-    <ul class="main list">
-        {% for article in posts %}
-        <li>
-            <a href='/admin/post/{{article.pid}}/edit'>
-                <strong>{{article.title}}</strong>
-                <span>
-                    <time>{{article.created}}</time>
-
-                    <em class="status {{article.status}}" title="{{ __('global.' + article.status) }}">
-                        {{__('global.' +  article.status)}}
-                    </em>
-                </span>
-
-                <p>{{article.description}}</p>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-
+        <ul class="main list">
+            {% for article in posts %}
+                <li>
+                    <a href='/admin/post/{{article.pid}}/edit'>
+                        <strong>{{article.title}}</strong>
+                        <span>
+                            <time>{{article.created}}</time>
+                            <em class="status {{article.status}}" title="{{ __('global.' + article.status) }}">
+                            {{__('global.' +  article.status)}}
+                            </em>
+                        </span>
+                        <p>{{article.description}}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     <aside class="paging">{{posts}}</aside>
-
-    {% else %}
-
+{% else %}
     <p class="empty posts">
         <span class="icon"></span>
         {{__('post.noposts_desc')}}<br>
         <a href='/admin/post/add' class='btn'>{{__('post.create_post')}}</a>
     </p>
-    {% endif %}
+{% endif %}
 </section>
-
 {% include "admin/layout/footer.html" %}

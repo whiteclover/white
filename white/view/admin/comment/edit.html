@@ -1,55 +1,44 @@
 {% include "admin/layout/header.html" %}
-
 <hgroup class="wrap">
-    <h1>{{__('comment.editing_comment')}}</h1>
+<h1>{{__('comment.editing_comment')}}</h1>
 </hgroup>
-
 <section class="wrap">
-
-
     <form method="post" action="/admin/comment/{{comment.cid}}/edit" novalidate>
         {{flash}}
-
         <fieldset class="split">
             <p>
                 <label>{{__('comment.name')}}:</label>
                 <input type='text' name='name' value='{{comment.name}}'/>
                 <em>{{__('comment.name_explain')}}</em>
             </p>
-
             <p>
                 <label>{{__('comment.email')}}:</label>
                 <input type='email' name='email' value='{{comment.email}}' />
                 <em>{{__('comment.email_explain')}}</em>
             </p>
-
             <p>
                 <label>{{__('comment.content')}}:</label>
                 <textarea name='content' cols=50 rows=10>{{comment.content}}</textarea>
                 <em>{{__('comment.content_explain')}}</em>
             </p>
-
             <p>
                 <label>{{__('comment.status')}}:</label>
                 <select name='status' id='status' value='{{comment.status}}'>
-                {% for name, value in statuses.items() %}
-                    {% if name == comment.status %}
-                    <option value="{{name}}" selected='selected'>{{value}}</option>
-                    {% else %}
-                    <option value="{{name}}">{{value}}</option>
-                    {% endif %}
-                {% endfor %}
+                    {% for name, value in statuses.items() %}
+                        {% if name == comment.status %}
+                            <option value="{{name}}" selected='selected'>{{value}}</option>
+                        {% else %}
+                            <option value="{{name}}">{{value}}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
                 <em>{{__('comment.status_explain')}}</em>
             </p>
         </fieldset>
-
         <aside class="buttons">
             <button type='submit' class='btn'>{{__('global.save')}}</button>
             <a href='/admin/comment/{{comment.cid}}/delete' class='btn delete red'>{{__('global.delete')}}</a>
         </aside>
     </form>
 </section>
-
-
 {% include "admin/layout/footer.html" %}

@@ -1,26 +1,17 @@
 {% include "admin/layout/header.html" %}
-
 <section class="login content">
-
-
 	<form method="post" action="/admin/login">
-	{{ flash }}
-
+		{{ flash }}
 		<fieldset>
 			<p><label for="user"> {{__('user.username')}}:</label>
 			<input type='text' id='user' name='username' autocapitalize='off' autofocus='true' placeholder='{{__('user.username')}}' >
-			</p>
-
-			<p><label for="pass">{{__('user.password')}}:</label>
-			<input name='password' id='pass' placeholder='{{__('user.password')}}' type='password' >
-			</p>
-
-			<p class="buttons">
-			<button type="submit"> {{__('global.login')}} </button></p>
-		</fieldset>
-	</form>
-
+		</p>
+		<p><label for="pass">{{__('user.password')}}:</label>
+		<input name='password' id='pass' placeholder='{{__('user.password')}}' type='password' >
+	</p>
+	<p class="buttons">
+	<button type="submit"> {{__('global.login')}} </button></p>
+</fieldset>
+</form>
 </section>
-
 {% include "admin/layout/footer.html" %}
-
