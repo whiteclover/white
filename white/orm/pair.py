@@ -45,4 +45,4 @@ class PairMapper(BaseMapper):
         return db.update(self.table).set('value', pair.value).condition('key', pair.key).execute()
 
     def delete(self, pair):
-        return dn.delete(self.table).condition('key', pair.key).condition('type', pair.type).execute()
+        return db.delete(self.table).condition('key', pair.key).condition('type', pair.type).execute()
