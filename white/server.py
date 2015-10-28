@@ -52,10 +52,13 @@ class WhiteServer(object):
         return self.app
 
     def bootstrap_setting(self):
+        from white.setting import Config
+        self.app.config.from_object(Config)
         config = self.load_config()
+
         if not config:
             raise Exception("Load App Setting failed")
-        self.app.config.from_object(config)
+        self.app.config.update(config)
 
         if self.options.debug:
             self.app.config['DEBUG'] = True
@@ -68,6 +71,11 @@ class WhiteServer(object):
             self.app.config['PORT'] = self.options.port
 
         from white.ext import session
+        if self.app.config['SESSION_TYPE'] == 'redis':
+            import redis
+            import datetime
+            self.app.config['SESSION_REDIS'] = redis.Redis(host=self.app.config['REDIS_HOST'])
+            self.app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(self.app.config.get('PERMANENT_SESSION_LIFETIME', 60))
         session.app = self.app
         session.init_app(self.app)
 
@@ -78,6 +86,8 @@ class WhiteServer(object):
         from white.ext import markdown
         lang.setup(self.app.config.get('LANGUAGE', 'en_GB'))
 
+        # set static folder
+        self.app.static_folder = self.app.config.get("STATIC_FOLDER", 'asset')
         self.app.jinja_env.globals.update(__=text)
         self.app.jinja_env.globals.update(
             flash=flash, site_categories=categories, menus=menus)
@@ -86,11 +96,9 @@ class WhiteServer(object):
         self.app.jinja_env.filters['markdown'] = markdown.convert
 
     def load_config(self):
-        with codecs.open(self.options.config, "r", "utf-8") as f:
-            code = f.read()
-            ns = {}
-            exec code in ns
-            return ns.get('Setting')
+        from white.config import ConfigFactory
+        hocon = ConfigFactory.parseFile(self.options.config, True)
+        return hocon.toDict()
 
     def bootstrap_errorpage(self):
         from flask import render_template

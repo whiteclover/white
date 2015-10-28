@@ -35,9 +35,9 @@ class Config:
     ######
     # Wanna use redis session, please comment filesystem session settings
     # SESSION_TYPE = 'redis'
-    # import redis
-    # SESSION_REDIS = redis.Redis()
-    # PERMANENT_SESSION_LIFETIME = datetime.timedelta(60)
+    # 
+    # REDIS_HOST = localhost
+    # PERMANENT_SESSION_LIFETIME = 60
 
     # DB Config
     DB_CONFIG = {
