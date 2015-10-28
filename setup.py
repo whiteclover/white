@@ -8,7 +8,7 @@ def include_path(datas, path):
         base, ex = path.split(os.path.sep, 1)
         for f in files:
             name, ext = f.split('.')
-            if ext in ('css', 'js', 'html'):
+            if ext in ('css', 'js', 'html', 'ico', 'png', 'gif'):
                 datas.append(os.path.join(ex, f))
         for d in dirs:
             include_path(datas, os.path.join(path, d))
