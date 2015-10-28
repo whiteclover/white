@@ -93,49 +93,52 @@ Write python setting in a file, the setting class name must be ``Setting``
 
 .. code-block:: python
 
-	from white.setting import Config
+	HOST = "localhost" # server host
+	PORT = 5000 # server port
 
-	class Setting(Config):
+	DEBUG = on # off # open debug mode
 
-	    HOST = 'localhost' # server host
-	    PORT = 5000 # server port
 
-	    DEBUG = True
-	    
-	    ## Flask Session module
-	    # session
-	    SECRET_KEY = '7oGwHH8NQDKn9hL12Gak9G/MEjZZYk4PsAxqKU4cJoY='
-	    SESSION_TYPE = 'filesystem'
-	    SESSION_FILE_DIR = '/var/www/$yoursite.com/cookies'
+	## Flask Session module
+	# session
+	SECRET_KEY = "7oGwHH8NQDKn9hL12Gak9G/MEjZZYk4PsAxqKU4cJoY="
+	SESSION_TYPE = "filesystem"
+	SESSION_FILE_DIR = "/var/www/$yoursite.com/cookies"
 
-	    ###### 
-	    # Wanna use redis session, please comment filesystem session settings
-	    # SESSION_TYPE = 'redis'
-	    # import redis 
-	    # SESSION_REDIS = redis.Redis()
-	    # PERMANENT_SESSION_LIFETIME = datetime.timedelta(60)
 
-	    SESSION_FILE_THRESHOLD = 100
-	    SESSION_FILE_MODE = 0600
 
-	    ## DB Config
-	    DB_CONFIG  = {
-	    	'db': 'white',
-	        'user': 'white',
-	        'passwd': 'white',
-	        'host': 'localhost',
+	## Flask Session module
+	# session
+	SECRET_KEY = "7oGwHH8NQDKn9hL12Gak9G/MEjZZYk4PsAxqKU4cJoY="
 
-	        'max_idle' : 10 # the mysql timeout setting
-	    }
-	    DB_MAXCONN = 10
-	    DB_MINCONN = 5
+	SESSION_TYPE = "filesystem" # "redis" 
+	## REDIS_HOST = 127.0.0.1
+	#PERMANENT_SESSION_LIFETIME = 60
 
-	    # the custom fields asset path
-	    CONTENT_PATH = '/var/www/$yoursite.com/content'
+	SESSION_FILE_DIR = "cookie"
+	SESSION_FILE_THRESHOLD = 100
+	SESSION_FILE_MODE = 0600
 
-	    LANGUAGE = 'en_GB' # in ('zh_CN', 'zh_TW', 'en_GB')
+	SESSION_FILE_THRESHOLD = 100
+	SESSION_FILE_MODE = 0600
 
-	    THEME = 'default' # the froent theme name
+
+	## DB Config
+	DB_CONFIG  {
+	    db = white
+	    user = white
+	    passwd = white
+	    host = localhost
+
+	    max_idle = 10 # the mysql timeout setting
+	}
+
+	# STATIC_FOLDER="pathTo/assets" # static folder if your wanna set custom you media assets
+	DB_MAXCONN = 10
+	DB_MINCONN = 5
+	CONTENT_PATH = "F:\white\content"
+	LANGUAGE = "en_GB"
+	THEME = "default"
 
 
 If your wanna set session adapter please see more information in `flask-session <http://pythonhosted.org/Flask-Session/>`_ doc.
