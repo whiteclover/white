@@ -133,9 +133,13 @@ Currently, using hocon config. the primary goal of hocon is: keep the semantics 
 	    max_idle = 10 # the mysql timeout setting
 	}
 
-	# STATIC_FOLDER="pathTo/assets" # static folder if your wanna set custom you media assets
+	# DB POOL Size 
 	DB_MAXCONN = 10
 	DB_MINCONN = 5
+
+
+	# STATIC_FOLDER="pathTo/assets" # static folder if your wanna set custom you media assets
+
 	CONTENT_PATH = "F:\white\content"
 	LANGUAGE = "en_GB"
 	THEME = "default"
