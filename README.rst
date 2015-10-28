@@ -89,7 +89,7 @@ Setup Config file
 =====================
 
 
-Write python setting in a file, the setting class name must be ``Setting``
+Currently, using hocon config. the primary goal of hocon is: keep the semantics (tree structure; set of types; encoding/escaping) from JSON, but make it more convenient as a human-editable config file format.
 
 .. code-block:: python
 
