@@ -140,7 +140,7 @@ Currently, using hocon config. the primary goal of hocon is: keep the semantics 
 
 	# STATIC_FOLDER="pathTo/assets" # static folder if your wanna set custom you media assets
 
-	CONTENT_PATH = "F:\white\content"
+	CONTENT_PATH = "/var/www/$yoursite.com/content"
 	LANGUAGE = "en_GB"
 	THEME = "default"
 
