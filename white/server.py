@@ -124,9 +124,10 @@ class WhiteServer(object):
         from white import orm
 
         config = self.app.config.get('DB_CONFIG')
+        adapter = self.app.config.get('DB_ADAPTER', 'mysql')
         minconn = self.app.config.get('MINCONN', 5)
         maxconn = self.app.config.get('MAXCONN', 10)
-        db.setup(config, minconn=minconn, maxconn=maxconn)
+        db.setup(config, minconn=minconn, maxconn=maxconn, adapter=adapter)
 
         orm.setup()
 
