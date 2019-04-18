@@ -56,4 +56,4 @@ class MetaMapper(BaseMapper):
                  data=data)).condition('mid', meta.mid).execute())
 
     def delete(self, meta):
-        return db.delete(self.table).codition('mid', meta.mid)
+        return db.delete(self.table).condition('mid', meta.mid)
