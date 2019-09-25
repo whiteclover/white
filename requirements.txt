@@ -1,5 +1,5 @@
 dbpy==0.1.2
-Flask==0.10.1
+Flask==1.0
 Flask-Session==0.1.1
 itsdangerous==0.24
 Jinja2==2.7.3
